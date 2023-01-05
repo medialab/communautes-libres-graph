@@ -1,11 +1,12 @@
 import chroma from "chroma-js";
 import iwanthue from "iwanthue";
 
+import seedrandom from "seedrandom";
+
 import FileSaver from "file-saver";
 
 import Graph from "graphology";
 import { Sigma } from "sigma";
-import { Coordinates } from "sigma/types";
 import { parse } from "graphology-gexf/browser";
 
 import simmelianStrength from 'graphology-metrics/edge/simmelian-strength';
@@ -24,7 +25,6 @@ import louvain from 'graphology-communities-louvain';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
 
 import { createNodeCompoundProgram } from 'sigma/rendering/webgl/programs/common/node';
-import NodePointProgram from 'sigma/rendering/webgl/programs/node.point';
 import NodePointWithBorderProgram from '@yomguithereal/sigma-experiments-renderers/node/node.point.border';
 import NodeHaloProgram from '@yomguithereal/sigma-experiments-renderers/node/node.halo';
 import EdgeCurveProgram from '@yomguithereal/sigma-experiments-renderers/edge/edge.curve';
@@ -33,7 +33,6 @@ import drawLabel from "./custom-label"
 import { cropToLargestConnectedComponent } from "graphology-components";
 
 /* TODO:
-- generate export 6000x6000
 - reapply louvain/FA2 to original graph
 - add cluster labels ? https://codesandbox.io/s/github/jacomyal/sigma.js/tree/main/examples/clusters-labels
 - generate minimaps for specific metrics:
@@ -42,27 +41,9 @@ import { cropToLargestConnectedComponent } from "graphology-components";
   - betweeness
   - pagerank
   ...
- */
-
-/*function renderPNG(graph, imagefile, size, callback) {
-  const t0 = Date.now();
-  renderToPNG(
-    graph,
-    imagefile + ".png",
-    {
-      width: size,
-      height: size,
-      nodes: {defaultColor: '#000'},
-      edges: {defaultColor: '#ccc'},
-    },
-    () => {
-      console.log(" " + imagefile + '.png rendered in:', (Date.now() - t0)/1000 + "s");
-      callback();
-    }
-  );
 }*/
 
-var palette = iwanthue(9, {
+const palette = iwanthue(9, {
   colorSpace: 'sensible',
   seed: "logiciels libres",
   clustering: 'force-vector',
@@ -85,58 +66,65 @@ fetch("./graph.gexf")
     hits.assign(graph);
     pagerank.assign(graph);
 
+    const seed = Math.random() + "";
+    document.getElementById("seed").innerHTML = seed;
     louvain.assign(graph, {
       resolution: 1.075,
-      getEdgeWeight: 'simmelianStrength'
+      getEdgeWeight: 'simmelianStrength',
+      rng: seedrandom(seed)
     });
 
     graph.forEachNode((node, attrs)  => {
       const color = palette[attrs['community'] % palette.length],
         size = attrs['nansi-degree'];
       graph2.addNode(node, {
-        x: attrs.x,
-        y: attrs.y,
-        label: attrs.label,
+        ...attrs,
         type: "circle",
         size: Math.sqrt(size),
         color: color,
         labelSize: Math.pow(500 * size, 0.25),
         borderSize: 1.5,
         borderColor: chroma(color).darken().hex(),
-        haloSize: 1.5 * size,
-        haloColor: chroma(color).brighten().hex(),
+        haloSize: 1 * size,
+        haloColor: "rgba(" + chroma(color).brighten().rgb().join(",") + ",0.9)",
         haloIntensity: 0.25
       });
     });
+
     graph.forEachEdge((edge, attrs, source, target) => {
       if (attrs.simmelianStrength > 3)
-        graph2.addEdge(source, target, attrs);
+        graph2.addEdge(source, target, {
+          ...attrs,
+          curveness: 0.3,
+          size: 0.5,
+          color: "#999"
+        });
     });
 
     cropToLargestConnectedComponent(graph2);
 
-    const settings = forceAtlas2.inferSettings(graph);
-    settings["edgeWeightInfluence"] = 1;
-    settings["adjustSizes"] = true;
-    settings["gravity"] = 1.25;
-    settings["strongGravityMode"] = false;
-    settings["scalingRatio"] = 0.1;
+    const FA2settings = forceAtlas2.inferSettings(graph2);
+/*
+    FA2settings["edgeWeightInfluence"] = 1;
+    FA2settings["adjustSizes"] = true;
+    FA2settings["gravity"] = 1.25;
+    FA2settings["strongGravityMode"] = false;
+    FA2settings["scalingRatio"] = 0.01;
+*/
     forceAtlas2.assign(graph2, {
       iterations: 1000,
       getEdgeWeight: 'simmelianStrength',
-      settings: settings
+      settings: FA2settings
     });
 
-    const container = document.getElementById("sigma") as HTMLElement;
 
-    const renderer = new Sigma(graph2, container, {
+    const sigmaSettings = {
       minCameraRatio: 0.1,
       maxCameraRatio: 10,
-      defaultEdgeColor: '#000',
       labelFont: '"DejaVu Sans Mono", monospace',
       labelColor: {color: '#000'},
       labelWeight: 'bold',
-      labelDensity: 1.15,
+      labelDensity: 1.05,
       labelGridCellSize: 200,
       nodeProgramClasses: {
         circle: createNodeCompoundProgram([
@@ -144,18 +132,43 @@ fetch("./graph.gexf")
           NodePointWithBorderProgram
         ])
       },
+      defaultEdgeColor: '#000',
       defaultEdgeType: 'curve',
       edgeProgramClasses: {
         curve: EdgeCurveProgram
       },
-      labelRenderer: drawLabel
-    });
+      labelRenderer: drawLabel,
+      stagePadding: 50
+    };
+    const container = document.getElementById("sigma") as HTMLElement;
+    const renderer = new Sigma(graph2, container, sigmaSettings);
     const camera = renderer.getCamera();
+
+    const angleInput = document.getElementById("angle") as HTMLInputElement;
+    angleInput.onchange = e => {
+      camera.angle = Math.PI * parseFloat(angleInput.value) / 360; 
+      renderer.refresh();
+    }
+ 
+    const hSizeInput = document.getElementById("halo-size") as HTMLInputElement;
+    hSizeInput.onchange = e => graph2.updateEachNodeAttributes((n, attrs) => ({
+      ...attrs,
+      haloSize: parseFloat(hSizeInput.value) * attrs["nansi-degree"]
+    }));
+
+    const hIntInput = document.getElementById("halo-intensity") as HTMLInputElement;
+    hIntInput.onchange = e => graph2.updateEachNodeAttributes((n, attrs) => ({
+      ...attrs,
+      haloIntensity: parseFloat(hIntInput.value)
+    }));
  
     // Enable SavePNG button
     document.getElementById("save-as-png").addEventListener("click", () => {
       setTimeout(async () => {
-        const { width, height } = renderer.getDimensions();
+        const ratio = 6;
+        let { width, height } = renderer.getDimensions();
+        width = width * ratio;
+        height = height * ratio;
         const pixelRatio = window.devicePixelRatio || 1;
         const tmpRoot = document.createElement("DIV");
         tmpRoot.style.width = `${width}px`;
@@ -164,8 +177,23 @@ fetch("./graph.gexf")
         tmpRoot.style.right = "101%";
         tmpRoot.style.bottom = "101%";
         document.body.appendChild(tmpRoot);
-        const tmpRenderer = new Sigma(graph, tmpRoot, renderer.getSettings());
-        tmpRenderer.getCamera().setState(camera.getState());
+        const tmpRenderer = new Sigma(renderer.getGraph(), tmpRoot, {
+          ...sigmaSettings,
+          labelGridCellSize: ratio * sigmaSettings.labelGridCellSize,
+          stagePadding: ratio * sigmaSettings.stagePadding,
+          nodeReducer: (n, attrs) => ({
+            ...attrs,
+            size: attrs.size * ratio,
+            labelSize: attrs.labelSize * ratio,
+            borderSize: attrs.borderSize * ratio,
+            haloSize: parseFloat(hSizeInput.value) * attrs["nansi-degree"] * ratio,
+          }),
+          edgeReducer: (e, attrs) => ({
+            ...attrs,
+            size: attrs.size * ratio
+          })
+        });
+        tmpRenderer.getCamera().angle = camera.angle;
         tmpRenderer.refresh();
         const canvas = document.createElement("CANVAS") as HTMLCanvasElement;
         canvas.setAttribute("width", width * pixelRatio + "");

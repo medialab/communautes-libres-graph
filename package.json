@@ -22,6 +22,7 @@
     "graphology-layout-noverlap": "^0.4.2",
     "graphology-metrics": "^2.1.0",
     "iwanthue": "^2.0.0",
+    "seedrandom": "^3.0.5",
     "sigma": "^3.0.0-alpha2"
   },
   "devDependencies": {

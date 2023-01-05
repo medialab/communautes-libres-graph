@@ -7,21 +7,42 @@
     <title>Graphe Communautés du Libre France</title>
     <style>
 html, body, #sigma {
-  width: 800px;
-  height: 800px;
+  width: 1000px;
+  height: 1000px;
   margin: 0;
   padding: 0;
   overflow: hidden;
+}
+#buttons {
+  position: absolute;
+  bottom: 35%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
 }
 button {
   position: absolute;
   bottom: 0;
   right: 0;
 }
+#seed {
+  position: fixed;
+  top: 0;
+  left: 48%;
+}
     </style>
   </head>
   <body>
     <div id="sigma"></div>
+    <span id="seed"></span>
+    <div id="buttons">
+      <label>Angle:</label>
+      <input type="text" id="angle" value="0"></input>
+      <label>haloSize:</label>
+      <input type="text" id="halo-size" value="1"></input>
+      <label>haloIntensity:</label>
+      <input type="text" id="halo-intensity" value="0.25"></input>
+    </div>
     <button type="button" id="save-as-png">Save as PNG</button>
     <script src="build/bundle.js"></script>
   </body>
