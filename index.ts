@@ -43,12 +43,11 @@ import { cropToLargestConnectedComponent } from "graphology-components";
   ...
 }*/
 
-const palette = iwanthue(9, {
-  colorSpace: 'sensible',
-  seed: "logiciels libres",
-  clustering: 'force-vector',
-  attempts: 5,
-});
+const baseAngle = 65;
+const haloSize = 15;
+const haloIntensity = 0.075;
+const seed = "0.5333956272631921";
+const colorSeed = "logiciels libres";
 
 fetch("./graph.gexf")
   .then((res) => res.text())
@@ -66,28 +65,16 @@ fetch("./graph.gexf")
     hits.assign(graph);
     pagerank.assign(graph);
 
-    const seed = Math.random() + "";
-    document.getElementById("seed").innerHTML = seed;
-    louvain.assign(graph, {
-      resolution: 1.075,
-      getEdgeWeight: 'simmelianStrength',
-      rng: seedrandom(seed)
-    });
-
     graph.forEachNode((node, attrs)  => {
-      const color = palette[attrs['community'] % palette.length],
-        size = attrs['nansi-degree'];
+      const size = Math.sqrt(attrs['nansi-degree']);
       graph2.addNode(node, {
         ...attrs,
         type: "circle",
-        size: Math.sqrt(size),
-        color: color,
-        labelSize: Math.pow(500 * size, 0.25),
+        size: size,
+        labelSize: Math.pow(80 * size, 0.4),
         borderSize: 1.5,
-        borderColor: chroma(color).darken().hex(),
-        haloSize: 1 * size,
-        haloColor: "rgba(" + chroma(color).brighten().rgb().join(",") + ",0.9)",
-        haloIntensity: 0.25
+        haloSize: haloSize * size,
+        haloIntensity: haloIntensity
       });
     });
 
@@ -124,8 +111,8 @@ fetch("./graph.gexf")
       labelFont: '"DejaVu Sans Mono", monospace',
       labelColor: {color: '#000'},
       labelWeight: 'bold',
-      labelDensity: 1.05,
-      labelGridCellSize: 200,
+      labelDensity: 1.5,
+      labelGridCellSize: 190,
       nodeProgramClasses: {
         circle: createNodeCompoundProgram([
           NodeHaloProgram,
@@ -145,25 +132,67 @@ fetch("./graph.gexf")
     const camera = renderer.getCamera();
 
     const angleInput = document.getElementById("angle") as HTMLInputElement;
+    angleInput.value = baseAngle + "";
     angleInput.onchange = e => {
-      camera.angle = Math.PI * parseFloat(angleInput.value) / 360; 
+      camera.angle = Math.PI * parseFloat(angleInput.value) / 180; 
       renderer.refresh();
     }
+    angleInput.onchange(null);
  
     const hSizeInput = document.getElementById("halo-size") as HTMLInputElement;
+    hSizeInput.value = haloSize + "";
     hSizeInput.onchange = e => graph2.updateEachNodeAttributes((n, attrs) => ({
       ...attrs,
-      haloSize: parseFloat(hSizeInput.value) * attrs["nansi-degree"]
+      haloSize: parseFloat(hSizeInput.value) * Math.sqrt(attrs["nansi-degree"])
     }));
 
     const hIntInput = document.getElementById("halo-intensity") as HTMLInputElement;
+    hIntInput.value = haloIntensity + "";
     hIntInput.onchange = e => graph2.updateEachNodeAttributes((n, attrs) => ({
       ...attrs,
       haloIntensity: parseFloat(hIntInput.value)
     }));
  
+    const colorSeedInput = document.getElementById("color-seed") as HTMLInputElement;
+    colorSeedInput.value = colorSeed;
+    const seedInput = document.getElementById("seed") as HTMLInputElement;
+    seedInput.value = seed;
+    seedInput.onchange = e => {
+      seed
+      const communities = louvain(graph, {
+        resolution: 1.075,
+        getEdgeWeight: 'simmelianStrength',
+        rng: seedrandom(seedInput.value)
+      });
+      const palette = iwanthue(9, {
+        colorSpace: 'sensible',
+        seed: colorSeedInput.value,
+        clustering: 'force-vector',
+        attempts: 5,
+      });
+      graph2.updateEachNodeAttributes((node, attrs) => {
+        const color = palette[communities[node] % palette.length];
+        return {
+          ...attrs,
+          color: color,
+          borderColor: chroma(color).darken().hex(),
+          haloColor: "rgba(" + chroma(color).brighten().rgb().join(",") + ",0.9)"
+        }
+      });
+    };
+    colorSeedInput.onchange = seedInput.onchange;
+    seedInput.onchange(null);
+    document.getElementById("random-seed").onclick = () => {
+      seedInput.value = Math.random() + "";
+      seedInput.onchange(null);
+    };
+    document.getElementById("random-color-seed").onclick = () => {
+      colorSeedInput.value = Math.random() + "";
+      seedInput.onchange(null);
+    };
+
     // Enable SavePNG button
-    document.getElementById("save-as-png").addEventListener("click", () => {
+    document.getElementById("save-as-png").onclick = () => {
       setTimeout(async () => {
         const ratio = 6;
         let { width, height } = renderer.getDimensions();
@@ -186,7 +215,7 @@ fetch("./graph.gexf")
             size: attrs.size * ratio,
             labelSize: attrs.labelSize * ratio,
             borderSize: attrs.borderSize * ratio,
-            haloSize: parseFloat(hSizeInput.value) * attrs["nansi-degree"] * ratio,
+            haloSize: parseFloat(hSizeInput.value) * Math.sqrt(attrs["nansi-degree"]) * ratio
           }),
           edgeReducer: (e, attrs) => ({
             ...attrs,
@@ -222,5 +251,5 @@ fetch("./graph.gexf")
           tmpRoot.remove();
         }, "image/png");
       }, 10);
-    });
+    };
   });

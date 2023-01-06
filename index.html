@@ -15,33 +15,33 @@ html, body, #sigma {
 }
 #buttons {
   position: absolute;
-  bottom: 35%;
+  bottom: 30px;
   right: 0;
   display: flex;
   flex-direction: column;
 }
-button {
+#save-as-png {
   position: absolute;
   bottom: 0;
   right: 0;
-}
-#seed {
-  position: fixed;
-  top: 0;
-  left: 48%;
 }
     </style>
   </head>
   <body>
     <div id="sigma"></div>
-    <span id="seed"></span>
     <div id="buttons">
+      <label>Louvain seed:</label>
+      <input type="text" id="seed"></input>
+      <button type="button" id="random-seed">Random seed</button>
+      <label>IWantHue seed:</label>
+      <input type="text" id="color-seed"></input>
+      <button type="button" id="random-color-seed">Random seed</button>
       <label>Angle:</label>
-      <input type="text" id="angle" value="0"></input>
+      <input type="text" id="angle"></input>
       <label>haloSize:</label>
-      <input type="text" id="halo-size" value="1"></input>
+      <input type="text" id="halo-size"></input>
       <label>haloIntensity:</label>
-      <input type="text" id="halo-intensity" value="0.25"></input>
+      <input type="text" id="halo-intensity"></input>
     </div>
     <button type="button" id="save-as-png">Save as PNG</button>
     <script src="build/bundle.js"></script>
