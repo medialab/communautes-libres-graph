@@ -13,12 +13,52 @@ html, body, #sigma {
   padding: 0;
   overflow: hidden;
 }
+#small {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  border: 0.5px solid #000;
+}
+#small > div {
+  display: flex;
+  flex-direction: column;
+}
+#small > div > div {
+  width: 300px;
+  height: 320px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0.5px solid #000;
+}
+#small > div > div > span {
+  position: relative;
+  top: 0;
+  left: 5px;
+}
+#small > div > div > div {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 300px;
+  width: 300px;
+}
 #buttons {
   position: absolute;
   bottom: 30px;
   right: 0;
   display: flex;
+  flex-direction: row;
+}
+#colors, #settings {
+  display: flex;
   flex-direction: column;
+  margin: 0 5px;
 }
 #save-as-png {
   position: absolute;
@@ -29,19 +69,33 @@ html, body, #sigma {
   </head>
   <body>
     <div id="sigma"></div>
+    <div id="small">
+      <div id="column1">
+        <div id="minimap1"><span></span><div></div></div>
+        <div id="minimap2"><span></span><div></div></div>
+      </div>
+      <div id="column2">
+        <div id="minimap3"><span></span><div></div></div>
+        <div id="minimap4"><span></span><div></div></div>
+      </div>
+    </div>
     <div id="buttons">
-      <label>Louvain seed:</label>
-      <input type="text" id="seed"></input>
-      <button type="button" id="random-seed">Random seed</button>
-      <label>IWantHue seed:</label>
-      <input type="text" id="color-seed"></input>
-      <button type="button" id="random-color-seed">Random seed</button>
-      <label>Angle:</label>
-      <input type="text" id="angle"></input>
-      <label>haloSize:</label>
-      <input type="text" id="halo-size"></input>
-      <label>haloIntensity:</label>
-      <input type="text" id="halo-intensity"></input>
+      <div id="colors">
+        <label>Louvain seed:</label>
+        <input type="text" id="seed"></input>
+        <button type="button" id="random-seed">Random seed</button>
+        <label>IWantHue seed:</label>
+        <input type="text" id="color-seed"></input>
+        <button type="button" id="random-color-seed">Random seed</button>
+      </div>
+      <div id="settings">
+        <label>Angle:</label>
+        <input type="text" id="angle"></input>
+        <label>haloSize:</label>
+        <input type="text" id="halo-size"></input>
+        <label>haloIntensity:</label>
+        <input type="text" id="halo-intensity"></input>
+      </div>
     </div>
     <button type="button" id="save-as-png">Save as PNG</button>
     <script src="build/bundle.js"></script>

@@ -33,21 +33,20 @@ import drawLabel from "./custom-label"
 import { cropToLargestConnectedComponent } from "graphology-components";
 
 /* TODO:
-- reapply louvain/FA2 to original graph
 - add cluster labels ? https://codesandbox.io/s/github/jacomyal/sigma.js/tree/main/examples/clusters-labels
-- generate minimaps for specific metrics:
+- build minimaps png export when clicking on save png
+- test  edges colors on minimaps for specific metrics ?
   - indegree <= edges colors = out node
   - outdegree <= edges colors = in node
-  - betweeness
-  - pagerank
-  ...
 }*/
 
-const baseAngle = 65;
-const haloSize = 15;
-const haloIntensity = 0.075;
+const baseAngle = 132;
+const haloSize = 14;
+const haloIntensity = 0.1;
 const seed = "0.5333956272631921";
-const colorSeed = "logiciels libres";
+//const colorSeed = "logiciels libres";
+//const colorSeed = "0.8453856862674052";
+const colorSeed = "0.9404079128839915";
 
 fetch("./graph.gexf")
   .then((res) => res.text())
@@ -91,13 +90,12 @@ fetch("./graph.gexf")
     cropToLargestConnectedComponent(graph2);
 
     const FA2settings = forceAtlas2.inferSettings(graph2);
-/*
-    FA2settings["edgeWeightInfluence"] = 1;
-    FA2settings["adjustSizes"] = true;
-    FA2settings["gravity"] = 1.25;
-    FA2settings["strongGravityMode"] = false;
-    FA2settings["scalingRatio"] = 0.01;
-*/
+    FA2settings["edgeWeightInfluence"] = 1.25;
+    FA2settings["gravity"] = 0.5;
+    //FA2settings["scalingRatio"] = 100;
+    //FA2settings["adjustSizes"] = true;
+    //FA2settings["strongGravityMode"] = false;
+
     forceAtlas2.assign(graph2, {
       iterations: 1000,
       getEdgeWeight: 'simmelianStrength',
@@ -127,15 +125,61 @@ fetch("./graph.gexf")
       labelRenderer: drawLabel,
       stagePadding: 50
     };
-    const container = document.getElementById("sigma") as HTMLElement;
-    const renderer = new Sigma(graph2, container, sigmaSettings);
+    const renderer = new Sigma(graph2, document.getElementById("sigma"), sigmaSettings);
     const camera = renderer.getCamera();
+    const miniSigmaSettings = (attr, ratio) => ({
+      minCameraRatio: 1/1.3,
+      maxCameraRatio: 1/1.3,
+      labelFont: '"DejaVu Sans Mono", monospace',
+      labelColor: {color: '#333'},
+      labelWeight: 'bold',
+      labelRenderedSizeThreshold: 4.5,
+      nodeProgramClasses: {
+        circle: NodePointWithBorderProgram
+      },
+      defaultEdgeType: 'curve',
+      edgeProgramClasses: {
+        curve: EdgeCurveProgram
+      },
+      nodeReducer: (n, attrs) => ({
+        ...attrs,
+        size: ratio * Math.sqrt(attrs[attr]),
+        borderSize: 1,
+        color: '#999',
+        borderColor: '#666'
+      }),
+      edgeReducer: (n, attrs) => ({
+        ...attrs,
+        size: 0.1,
+        color: '#EEE'
+      })
+    });
+    const renderers = [];
+/* "betweennessCentrality", "closenessCentrality", "degreeCentrality", "inDegreeCentrality", "outDegreeCentrality",
+"eigenvectorCentrality", "authority", "hub", "pagerank" */
+    [
+      ["indegree", 1/3],
+      //["inDegreeCentrality", 10],
+      ["betweennessCentrality", 12],
+      ["outdegree", 1/10],
+      //["outDegreeCentrality", 10],
+      ["pagerank", 30]
+      //["authority", 30],
+      //["eigenvectorCentrality", 10]
+    ].forEach((setting, idx) => {
+      document.querySelector("#minimap" + (idx+1) + " > span").innerHTML = setting[0] as string;
+      renderers.push(new Sigma(graph2, document.querySelector("#minimap" + (idx+1) + " > div"), miniSigmaSettings(setting[0], setting[1])));
+    });
 
     const angleInput = document.getElementById("angle") as HTMLInputElement;
     angleInput.value = baseAngle + "";
     angleInput.onchange = e => {
       camera.angle = Math.PI * parseFloat(angleInput.value) / 180; 
       renderer.refresh();
+      renderers.forEach(r => {
+        r.getCamera().angle = camera.angle
+        r.refresh();
+      });
     }
     angleInput.onchange(null);
  
