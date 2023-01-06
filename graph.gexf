@@ -76,7 +76,7 @@
         <viz:size value="5.246060160632486"/>
         <viz:position x="-367.0304003897134" y="43.92583310064964"/>
       </node>
-      <node id="3" label="Agendadulibre.org">
+      <node id="3" label="AgendaDuLibre.org">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="13669"/>
@@ -126,7 +126,7 @@
         <viz:size value="6.725390707537944"/>
         <viz:position x="114.62002937190965" y="91.73842232858189"/>
       </node>
-      <node id="5" label="Linuxfr.org">
+      <node id="5" label="LinuxFr.org">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="17135"/>
@@ -326,7 +326,7 @@
         <viz:size value="6.442498685060284"/>
         <viz:position x="232.2432431782216" y="-286.3277736831472"/>
       </node>
-      <node id="21" label="Laquadrature.net">
+      <node id="21" label="LaQuadrature.net">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="510"/>
@@ -351,7 +351,7 @@
         <viz:size value="11.315072636027795"/>
         <viz:position x="66.94999903836842" y="260.5474243443801"/>
       </node>
-      <node id="22" label="Rmll.info">
+      <node id="22" label="RMLL.info">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="205"/>
@@ -1251,7 +1251,7 @@
         <viz:size value="5.120000000000001"/>
         <viz:position x="-427.1297843653972" y="-40.32307287005641"/>
       </node>
-      <node id="80" label="Cnll.fr">
+      <node id="80" label="CNLL.fr">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="311"/>
@@ -1726,7 +1726,7 @@
         <viz:size value="4.989934946516396"/>
         <viz:position x="135.36323008107578" y="-348.1004254902503"/>
       </node>
-      <node id="119" label="Opensource-Experience.com">
+      <node id="119" label="OpenSource-Experience.com">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="458"/>
@@ -2251,7 +2251,7 @@
         <viz:size value="7.816447570647861"/>
         <viz:position x="-96.65066021817583" y="-114.60246087694368"/>
       </node>
-      <node id="186" label="Openstreetmap.fr">
+      <node id="186" label="OpenStreetMap.fr">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="324"/>
@@ -2826,7 +2826,7 @@
         <viz:size value="3.072000000000001"/>
         <viz:position x="-442.81146539831263" y="-400.305937816999"/>
       </node>
-      <node id="239" label="Opensourcepolitics.eu">
+      <node id="239" label="OpenSourcePolitics.eu">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="338"/>
@@ -4575,7 +4575,7 @@
         <viz:size value="3.072000000000001"/>
         <viz:position x="-55.938797397988964" y="-160.5306674057706"/>
       </node>
-      <node id="576" label="Opensuse.org">
+      <node id="576" label="OpenSuse.org">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="8026"/>
@@ -5571,7 +5571,7 @@
         <viz:size value="5.368464063610149"/>
         <viz:position x="34.602702765009965" y="532.1720982427609"/>
       </node>
-      <node id="869" label="Ffdn.org">
+      <node id="869" label="FFDN.org">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="1363"/>
@@ -9077,7 +9077,7 @@
         <viz:size value="3.3137336089597857"/>
         <viz:position x="-262.14464921501445" y="399.2201977046641"/>
       </node>
-      <node id="3381" label="Lecourrierduhacker.com">
+      <node id="3381" label="LeCourrierDuHacker.com">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="1135"/>
@@ -9745,7 +9745,7 @@
         <viz:size value="3.3137336089597857"/>
         <viz:position x="-217.42914708357745" y="10.660017060527167"/>
       </node>
-      <node id="3897" label="Data.gouv.fr">
+      <node id="3897" label="data.gouv.fr">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="2234"/>
