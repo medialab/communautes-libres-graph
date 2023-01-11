@@ -143,7 +143,7 @@ fetch("./graph.gexf")
       },
       nodeReducer: (n, attrs) => ({
         ...attrs,
-        size: ratio * Math.sqrt(attrs[attr]),
+        size: ratio * Math.pow(attrs[attr], 6/5),
         borderSize: 1,
         color: '#999',
         borderColor: '#666'
@@ -158,12 +158,12 @@ fetch("./graph.gexf")
 /* "betweennessCentrality", "closenessCentrality", "degreeCentrality", "inDegreeCentrality", "outDegreeCentrality",
 "eigenvectorCentrality", "authority", "hub", "pagerank" */
     [
-      ["indegree", 1/3],
+      ["indegree", 1/50],
       //["inDegreeCentrality", 10],
-      ["betweennessCentrality", 12],
-      ["outdegree", 1/10],
+      ["betweennessCentrality", 70],
+      ["outdegree", 1/1500],
       //["outDegreeCentrality", 10],
-      ["pagerank", 30]
+      ["pagerank", 700]
       //["authority", 30],
       //["eigenvectorCentrality", 10]
     ].forEach((setting, idx) => {
