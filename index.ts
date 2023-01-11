@@ -32,14 +32,6 @@ import drawLabel from "./custom-label"
 
 import { cropToLargestConnectedComponent } from "graphology-components";
 
-/* TODO:
-- add cluster labels ? https://codesandbox.io/s/github/jacomyal/sigma.js/tree/main/examples/clusters-labels
-- build minimaps png export when clicking on save png
-- test  edges colors on minimaps for specific metrics ?
-  - indegree <= edges colors = out node
-  - outdegree <= edges colors = in node
-}*/
-
 const baseAngle = 132;
 const haloSize = 14;
 const haloIntensity = 0.1;
@@ -47,6 +39,11 @@ const seed = "0.5333956272631921";
 //const colorSeed = "logiciels libres";
 //const colorSeed = "0.8453856862674052";
 const colorSeed = "0.9404079128839915";
+
+const angleInput = document.getElementById("angle") as HTMLInputElement;
+const hSizeInput = document.getElementById("halo-size") as HTMLInputElement;
+const hIntInput = document.getElementById("halo-intensity") as HTMLInputElement;
+const colorSeedInput = document.getElementById("color-seed") as HTMLInputElement;
 
 fetch("./graph.gexf")
   .then((res) => res.text())
@@ -64,6 +61,7 @@ fetch("./graph.gexf")
     hits.assign(graph);
     pagerank.assign(graph);
 
+    const maxVals = {};
     graph.forEachNode((node, attrs)  => {
       const size = Math.sqrt(attrs['nansi-degree']);
       graph2.addNode(node, {
@@ -74,6 +72,10 @@ fetch("./graph.gexf")
         borderSize: 1.5,
         haloSize: haloSize * size,
         haloIntensity: haloIntensity
+      });
+      Object.keys(attrs).forEach(attr => {
+        if (typeof attrs[attr] === "number")
+          maxVals[attr] = Math.max(maxVals[attr] || 0, attrs[attr]);
       });
     });
 
@@ -103,14 +105,14 @@ fetch("./graph.gexf")
     });
 
 
-    const sigmaSettings = {
+    const sigmaSettings = ratio => ({
       minCameraRatio: 0.1,
       maxCameraRatio: 10,
       labelFont: '"DejaVu Sans Mono", monospace',
       labelColor: {color: '#000'},
       labelWeight: 'bold',
       labelDensity: 1.5,
-      labelGridCellSize: 190,
+      labelGridCellSize: ratio * 190,
       nodeProgramClasses: {
         circle: createNodeCompoundProgram([
           NodeHaloProgram,
@@ -123,19 +125,34 @@ fetch("./graph.gexf")
         curve: EdgeCurveProgram
       },
       labelRenderer: drawLabel,
-      stagePadding: 50
-    };
-    const renderer = new Sigma(graph2, document.getElementById("sigma"), sigmaSettings);
+      stagePadding: ratio * 50,
+      nodeReducer: (n, attrs) => ({
+        ...attrs,
+        size: attrs.size * ratio,
+        labelSize: attrs.labelSize * ratio,
+        borderSize: attrs.borderSize * ratio,
+        haloSize: parseFloat(hSizeInput.value) * Math.sqrt(attrs["nansi-degree"]) * ratio
+      }),
+      edgeReducer: (e, attrs) => ({
+        ...attrs,
+        size: attrs.size * ratio
+      })
+    });
+    const renderer = new Sigma(graph2, document.getElementById("sigma"), sigmaSettings(1));
     const camera = renderer.getCamera();
     const miniSigmaSettings = (attr, ratio) => ({
-      minCameraRatio: 1/1.3,
-      maxCameraRatio: 1/1.3,
       labelFont: '"DejaVu Sans Mono", monospace',
       labelColor: {color: '#333'},
       labelWeight: 'bold',
-      labelRenderedSizeThreshold: 4.5,
+      labelDensity: 1.5,
+      labelGridCellSize: ratio * 190,
+      labelRenderedSizeThreshold: ratio * 3.5,
+      labelRenderer: drawLabel,
       nodeProgramClasses: {
-        circle: NodePointWithBorderProgram
+        circle: createNodeCompoundProgram([
+          NodeHaloProgram,
+          NodePointWithBorderProgram
+        ])
       },
       defaultEdgeType: 'curve',
       edgeProgramClasses: {
@@ -143,35 +160,40 @@ fetch("./graph.gexf")
       },
       nodeReducer: (n, attrs) => ({
         ...attrs,
-        size: ratio * Math.pow(attrs[attr], 6/5),
-        borderSize: 1,
+        size: ratio * Math.max(0.5, 10 * Math.pow(attrs[attr] / maxVals[attr], 6/5)),
+        labelSize: ratio * Math.pow(35 * Math.max(0.1, 10 * Math.pow(attrs[attr] / maxVals[attr], 6/5)), 0.4),
+        borderSize: attrs.borderSize * ratio / 3,
         color: '#999',
-        borderColor: '#666'
+        borderColor: '#666',
+        haloColor: '#999',
+        haloSize: ratio * Math.max(1.5, 10 * Math.pow(attrs[attr] / maxVals[attr], 6/5)) * 5,
+        haloIntensity: 0.2 + Math.pow(attrs[attr] / (4 * maxVals[attr]), 6/5)
       }),
       edgeReducer: (n, attrs) => ({
         ...attrs,
-        size: 0.1,
-        color: '#EEE'
+        size: ratio * 0.01,
+        color: '#FFF'
       })
     });
     const renderers = [];
 /* "betweennessCentrality", "closenessCentrality", "degreeCentrality", "inDegreeCentrality", "outDegreeCentrality",
 "eigenvectorCentrality", "authority", "hub", "pagerank" */
-    [
-      ["indegree", 1/50],
-      //["inDegreeCentrality", 10],
-      ["betweennessCentrality", 70],
-      ["outdegree", 1/1500],
-      //["outDegreeCentrality", 10],
-      ["pagerank", 700]
-      //["authority", 30],
-      //["eigenvectorCentrality", 10]
-    ].forEach((setting, idx) => {
-      document.querySelector("#minimap" + (idx+1) + " > span").innerHTML = setting[0] as string;
-      renderers.push(new Sigma(graph2, document.querySelector("#minimap" + (idx+1) + " > div"), miniSigmaSettings(setting[0], setting[1])));
+    const miniMapsAttributes = [
+      "indegree",
+      //"inDegreeCentrality",
+      "betweennessCentrality",
+      "outdegree",
+      //"outDegreeCentrality",
+      "pagerank",
+      //"authority",
+      //"eigenvectorCentrality",
+    ];
+    miniMapsAttributes.forEach((attr, idx) => {
+      document.querySelector("#minimap" + (idx+1) + " > span").innerHTML = attr;
+      renderers.push(new Sigma(graph2, document.querySelector("#minimap" + (idx+1) + " > div"), miniSigmaSettings(attr, 1)));
+      renderers[idx].getCamera().ratio = 1/1.3;
     });
 
-    const angleInput = document.getElementById("angle") as HTMLInputElement;
     angleInput.value = baseAngle + "";
     angleInput.onchange = e => {
       camera.angle = Math.PI * parseFloat(angleInput.value) / 180; 
@@ -183,21 +205,18 @@ fetch("./graph.gexf")
     }
     angleInput.onchange(null);
  
-    const hSizeInput = document.getElementById("halo-size") as HTMLInputElement;
     hSizeInput.value = haloSize + "";
     hSizeInput.onchange = e => graph2.updateEachNodeAttributes((n, attrs) => ({
       ...attrs,
       haloSize: parseFloat(hSizeInput.value) * Math.sqrt(attrs["nansi-degree"])
     }));
 
-    const hIntInput = document.getElementById("halo-intensity") as HTMLInputElement;
     hIntInput.value = haloIntensity + "";
     hIntInput.onchange = e => graph2.updateEachNodeAttributes((n, attrs) => ({
       ...attrs,
       haloIntensity: parseFloat(hIntInput.value)
     }));
  
-    const colorSeedInput = document.getElementById("color-seed") as HTMLInputElement;
     colorSeedInput.value = colorSeed;
     const seedInput = document.getElementById("seed") as HTMLInputElement;
     seedInput.value = seed;
@@ -237,9 +256,8 @@ fetch("./graph.gexf")
 
     // Enable SavePNG button
     document.getElementById("save-as-png").onclick = () => {
-      setTimeout(async () => {
-        const ratio = 6;
-        let { width, height } = renderer.getDimensions();
+      function renderPNG(rdr, ratio, fileName, settings) {
+        let { width, height } = rdr.getDimensions();
         width = width * ratio;
         height = height * ratio;
         const pixelRatio = window.devicePixelRatio || 1;
@@ -250,22 +268,7 @@ fetch("./graph.gexf")
         tmpRoot.style.right = "101%";
         tmpRoot.style.bottom = "101%";
         document.body.appendChild(tmpRoot);
-        const tmpRenderer = new Sigma(renderer.getGraph(), tmpRoot, {
-          ...sigmaSettings,
-          labelGridCellSize: ratio * sigmaSettings.labelGridCellSize,
-          stagePadding: ratio * sigmaSettings.stagePadding,
-          nodeReducer: (n, attrs) => ({
-            ...attrs,
-            size: attrs.size * ratio,
-            labelSize: attrs.labelSize * ratio,
-            borderSize: attrs.borderSize * ratio,
-            haloSize: parseFloat(hSizeInput.value) * Math.sqrt(attrs["nansi-degree"]) * ratio
-          }),
-          edgeReducer: (e, attrs) => ({
-            ...attrs,
-            size: attrs.size * ratio
-          })
-        });
+        const tmpRenderer = new Sigma(rdr.getGraph(), tmpRoot, settings);
         tmpRenderer.getCamera().angle = camera.angle;
         tmpRenderer.refresh();
         const canvas = document.createElement("CANVAS") as HTMLCanvasElement;
@@ -290,10 +293,16 @@ fetch("./graph.gexf")
           );
         });
         canvas.toBlob((blob) => {
-          if (blob) FileSaver.saveAs(blob, "graph.png");
+          if (blob) FileSaver.saveAs(blob, fileName + ".png");
           tmpRenderer.kill();
           tmpRoot.remove();
         }, "image/png");
+      }
+      setTimeout(async () => {
+        renderPNG(renderer, 6, "main-graph", sigmaSettings(6));
+        miniMapsAttributes.forEach((attr, idx) =>
+         renderPNG(renderers[idx], 6, "mini-graph-" + attr + ".png", miniSigmaSettings(attr, 6))
+        );
       }, 10);
     };
   });
