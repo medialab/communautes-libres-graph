@@ -119,6 +119,9 @@ fetch("./graph.gexf")
           NodePointWithBorderProgram
         ])
       },
+      nodeHoverProgramClasses: {
+        circle: NodePointWithBorderProgram
+      },
       defaultEdgeColor: '#000',
       defaultEdgeType: 'curve',
       edgeProgramClasses: {
@@ -153,6 +156,9 @@ fetch("./graph.gexf")
           NodeHaloProgram,
           NodePointWithBorderProgram
         ])
+      },
+      nodeHoverProgramClasses: {
+        circle: NodePointWithBorderProgram
       },
       defaultEdgeType: 'curve',
       edgeProgramClasses: {
