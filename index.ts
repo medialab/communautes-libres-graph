@@ -108,7 +108,7 @@ fetch("./graph.gexf")
     const sigmaSettings = ratio => ({
       minCameraRatio: 0.1,
       maxCameraRatio: 10,
-      labelFont: '"DejaVu Sans Mono", monospace',
+      labelFont: "SourceCodePro",
       labelColor: {color: '#000'},
       labelWeight: 'bold',
       labelDensity: 1.5,
