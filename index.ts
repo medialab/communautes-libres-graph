@@ -307,7 +307,7 @@ fetch("./graph.gexf")
       setTimeout(async () => {
         renderPNG(renderer, 6, "main-graph", sigmaSettings(6));
         miniMapsAttributes.forEach((attr, idx) =>
-         renderPNG(renderers[idx], 6, "mini-graph-" + attr + ".png", miniSigmaSettings(attr, 6))
+         renderPNG(renderers[idx], 6, "mini-graph-" + attr, miniSigmaSettings(attr, 6))
         );
       }, 10);
     };
