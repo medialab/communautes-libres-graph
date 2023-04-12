@@ -12,9 +12,11 @@ export default function drawLabel(
   const font = settings.labelFont;
   const weight = settings.labelWeight;
   const color = data.labelColor || settings.labelColor.color;
+  const labelOffsetX = data.labelOffsetX || 0;
+  const labelOffsetY = data.labelOffsetY || 0;
 
   context.fillStyle = color;
   context.font = `${weight} ${size}px ${font}`;
 
-  context.fillText(data.label, data.x + data.size + 3, data.y + size / 3);
+  context.fillText(data.label, data.x + labelOffsetX + data.size + 3, data.y + labelOffsetY + size / 3);
 }

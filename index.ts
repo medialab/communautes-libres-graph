@@ -40,6 +40,14 @@ const seed = "0.5333956272631921";
 //const colorSeed = "0.8453856862674052";
 const colorSeed = "0.9404079128839915";
 
+const labelsOffsets = {
+    "16787": {y: 6},
+    "18237": {y: 15000000},
+    "33": {y: -2},
+    "119": {y: 1},
+    "53": {y: 2}
+};
+
 const angleInput = document.getElementById("angle") as HTMLInputElement;
 const hSizeInput = document.getElementById("halo-size") as HTMLInputElement;
 const hIntInput = document.getElementById("halo-intensity") as HTMLInputElement;
@@ -71,7 +79,9 @@ fetch("./graph.gexf")
         labelSize: Math.pow(80 * size, 0.4),
         borderSize: 1.5,
         haloSize: haloSize * size,
-        haloIntensity: haloIntensity
+        haloIntensity: haloIntensity,
+        labelOffsetX: (labelsOffsets[node] || {x: 0}).x || 0,
+        labelOffsetY: (labelsOffsets[node] || {y: 0}).y || 0
       });
       Object.keys(attrs).forEach(attr => {
         if (typeof attrs[attr] === "number")
@@ -134,7 +144,9 @@ fetch("./graph.gexf")
         size: attrs.size * ratio,
         labelSize: attrs.labelSize * ratio,
         borderSize: attrs.borderSize * ratio,
-        haloSize: parseFloat(hSizeInput.value) * Math.sqrt(attrs["nansi-degree"]) * ratio
+        haloSize: parseFloat(hSizeInput.value) * Math.sqrt(attrs["nansi-degree"]) * ratio,
+        labelOffsetX: ratio * attrs["labelOffsetX"],
+        labelOffsetY: ratio * attrs["labelOffsetY"]
       }),
       edgeReducer: (e, attrs) => ({
         ...attrs,
@@ -305,9 +317,10 @@ fetch("./graph.gexf")
         }, "image/png");
       }
       setTimeout(async () => {
-        renderPNG(renderer, 6, "main-graph", sigmaSettings(6));
+        let rate = 6;
+        renderPNG(renderer, rate, "main-graph", sigmaSettings(rate));
         miniMapsAttributes.forEach((attr, idx) =>
-         renderPNG(renderers[idx], 6, "mini-graph-" + attr, miniSigmaSettings(attr, 6))
+         renderPNG(renderers[idx], rate, "mini-graph-" + attr, miniSigmaSettings(attr, rate))
         );
       }, 10);
     };
