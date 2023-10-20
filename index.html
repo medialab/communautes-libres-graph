@@ -5,39 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Cartographie web des Communautés du Libre en France</title>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div id="sigma"></div>
-    <div id="small">
-      <div id="column1">
-        <div id="minimap1"><span></span><div></div></div>
-        <div id="minimap2"><span></span><div></div></div>
-      </div>
-      <div id="column2">
-        <div id="minimap3"><span></span><div></div></div>
-        <div id="minimap4"><span></span><div></div></div>
-      </div>
+    <div id="explications">
+      <h3>La forme réseau</h3>
+      <p>En 1736, le mathématicien suisse Leonhard Euler résout une énigme qui deviendra célèbre : comment offrir aux habitants de Königsberg un circuit de promenade qui leur permette de traverser une et une seule fois chacun des sept ponts de leur ville ? Pour cela, Euler réduit le plan de Königsberg à une série de nœuds (les parties de la ville) reliés par des arcs (les ponts). Cette forme de représentation a donné naissance à la théorie des graphes, ou théorie des réseaux, depuis lors régulièrement utilisée en mathématiques pour traiter des problèmes d’optimisation complexes comme la recherche du plus court chemin sur une carte, dans un réseau de transports ou dans la toile de serveurs et de câbles que constitue le réseau internet lui-même.</p>
+      <p>Les sciences sociales s’emparent à leur tour de ce type de représentation, au début du xxe siècle. Les « sociogrammes » de Jacob Levy Moreno s’imposent comme de puissants vecteurs visuels pour étudier les relations sociales et les interactions entre les individus, là où les tableaux et matrices étaient généralement mis en échec. Leur application reste limitée à des réseaux de petite taille, jusqu’à ce que le développement de l’informatique et des capacités numériques, à partir des années 1990, permette l’étude de réseaux de taille moyenne à très grande à l’aide d’algorithmes automatisés de spatialisation et de calcul.</p>
+      <p>Bien que les représentations en réseau ne soient pas sans limites et qu’il convienne de les lire avec beaucoup de précaution si l’on veut éviter de leur donner des interprétations erronées, elles sont désormais perçues, à bien des égards, comme une cartographie pertinente d’ensembles de données abstraites. La carte des sites web francophones des différentes communautés du logiciel libre reproduite ci-contre en offre un exemple. Elle a été réalisée par crawling avec le logiciel Hyphe, un programme qui visite automatiquement les pages web demandées et en extrait les liens vers d’autres pages afin de les visiter à leur tour et de construire progressivement le réseau des liens entre sites.</p>
     </div>
-    <div id="buttons">
-      <div id="colors">
-        <label>Louvain seed:</label>
-        <input type="text" id="seed"></input>
-        <button type="button" id="random-seed">Random seed</button>
-        <label>IWantHue seed:</label>
-        <input type="text" id="color-seed"></input>
-        <button type="button" id="random-color-seed">Random seed</button>
-      </div>
-      <div id="settings">
-        <label>Angle:</label>
-        <input type="text" id="angle"></input>
-        <label>haloSize:</label>
-        <input type="text" id="halo-size"></input>
-        <label>haloIntensity:</label>
-        <input type="text" id="halo-intensity"></input>
-      </div>
-    </div>
-    <button type="button" id="save-as-png">Save as PNG</button>
+    <div id="sigma" class="homepage"></div>
+    <h1>Cartographie web des Communautés du Libre en France</h1>
+    <span id="linkback"><a href="export.html">Visiter la page d'export des images</a></span>
     <script src="build/bundle.js"></script>
   </body>
 </html>
