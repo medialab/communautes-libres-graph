@@ -4,74 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Graphe Communautés du Libre France</title>
-    <style>
-@font-face {
-  font-family: "SourceCodePro";
-  src: url(./fonts/SourceCodePro-VariableFont_wght.ttf) format("truetype");
-}
-
-html, body, #sigma {
-  width: 1000px;
-  height: 1000px;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  font-family: "SourceCodePro";
-}
-#small {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: flex;
-  flex-direction: row;
-  border: 0.5px solid #000;
-}
-#small > div {
-  display: flex;
-  flex-direction: column;
-}
-#small > div > div {
-  width: 300px;
-  height: 320px;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0.5px solid #000;
-}
-#small > div > div > span {
-  position: relative;
-  top: 0;
-  left: 5px;
-}
-#small > div > div > div {
-  position: relative;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  height: 300px;
-  width: 300px;
-}
-#buttons {
-  position: absolute;
-  bottom: 30px;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-}
-#colors, #settings {
-  display: flex;
-  flex-direction: column;
-  margin: 0 5px;
-}
-#save-as-png {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-    </style>
+    <title>Cartographie web des Communautés du Libre en France</title>
+    <link rel="stylesheet" href="css/style.css"/>
   </head>
   <body>
     <div id="sigma"></div>
