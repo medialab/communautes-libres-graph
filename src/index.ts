@@ -339,6 +339,7 @@ const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
   // - improve explanations zone, add explicit ref to atlas book
   // - add loader
+  // - add Louvain colors legend
   // - add buttons to switch node size with other metrics
   // - add logos + links médialab/sourcecode
   // - add link to export page
