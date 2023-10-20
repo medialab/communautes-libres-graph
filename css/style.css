@@ -48,7 +48,7 @@ h1 {
   bottom: 8px;
   right: 5px
 }
-#linkback a:visited {
+#linkback a, #linkback a:visited {
   color: black;
 }
 #small {
