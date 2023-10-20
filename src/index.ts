@@ -53,7 +53,7 @@ const hSizeInput = document.getElementById("halo-size") as HTMLInputElement;
 const hIntInput = document.getElementById("halo-intensity") as HTMLInputElement;
 const colorSeedInput = document.getElementById("color-seed") as HTMLInputElement;
 
-fetch("./graph.gexf")
+fetch("./data/graph.gexf")
   .then((res) => res.text())
   .then((gexf) => {
     const graph = parse(Graph, gexf);

@@ -11,7 +11,7 @@
     "typeRoots": ["./node_modules/@types/", "./external-types/"],
     "lib": ["dom", "dom.iterable"]
   },
-  "include": ["./*"],
+  "include": ["src/*"],
   "ts-node": {
     "files": true
   },
