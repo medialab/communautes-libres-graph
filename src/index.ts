@@ -352,7 +352,7 @@ fetch("./data/graph.gexf")
   .then((res) => res.text())
   .then((gexf) => {
     if (window.location.pathname !== "/export.html") {
-      document.getElementById("sigma").style.height = window.innerHeight - 43 + "px";
+      document.getElementById("sigma").style.height = window.innerHeight - 47 + "px";
       document.getElementById("explications").style.height = window.innerHeight - 43 + "px";
     }
     const vars = prepareGraph(gexf);
