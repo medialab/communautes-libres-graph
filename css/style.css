@@ -9,6 +9,9 @@ html, body {
   overflow: hidden;
   font-family: "SourceCodePro";
 }
+a, a:visited {
+  color: black;
+}
 h1 {
   font-size: 22px;
   text-align: center;
@@ -18,26 +21,32 @@ h1 {
   background-color: #EEE;
   border-bottom: 1px solid #BBB;
 }
+#logo {
+  position: absolute;
+  height: 32px;
+  margin: 5px;
+}
 #linkback {
   position: absolute;
   font-size: 13px;
   top: 13px;
   right: 8px
 }
-#linkback a, #linkback a:visited {
-  color: black;
-}
 #explications {
   width: 25%;
-  height: 2000px;
   float: left;
   font-size: 14px;
   background-color: #EEE;
   overflow-y: auto;
+  margin-bottom: 5px;
 }
 #explications h3, #explications p {
   padding: 5px;
   margin: 5px;
+}
+.subtitle {
+  font-weight: bold;
+  font-size: 15px;
 }
 #sigma.homepage {
   width: 75%;

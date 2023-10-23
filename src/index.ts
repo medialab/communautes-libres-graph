@@ -337,15 +337,12 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
 
 const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
-  // - improve explanations zone, add explicit ref to atlas book
   // - add loader
   // - add Louvain colors legend
   // - add default sigma buttons
   // - add search nodes
   // - add click nodes and/or hover node
   // - add buttons to switch node size with other metrics
-  // - add logos + links médialab/sourcecode
-  // - add link to export page
 
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
   adjustAngle(renderer, camera, baseAngle, null);
@@ -355,8 +352,8 @@ fetch("./data/graph.gexf")
   .then((res) => res.text())
   .then((gexf) => {
     if (window.location.pathname !== "/export.html") {
-      document.getElementById("sigma").style.height = window.innerHeight - 30 + "px";
-      document.getElementById("explications").style.height = window.innerHeight - 30 + "px";
+      document.getElementById("sigma").style.height = window.innerHeight - 43 + "px";
+      document.getElementById("explications").style.height = window.innerHeight - 43 + "px";
     }
     const vars = prepareGraph(gexf);
     if (window.location.pathname === "/export.html")
