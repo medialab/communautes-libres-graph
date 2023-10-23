@@ -351,7 +351,7 @@ const buildHomepage = function(graph, graph2, renderer, camera) {
 fetch("./data/graph.gexf")
   .then((res) => res.text())
   .then((gexf) => {
-    if (window.location.pathname !== "/export.html") {
+    if (! /\/export\.html/.test(window.location.pathname)) {
       document.getElementById("sigma").style.height = window.innerHeight - 47 + "px";
       document.getElementById("explications").style.height = window.innerHeight - 43 + "px";
     }
