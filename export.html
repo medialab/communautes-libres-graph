@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+    <h1>Cartographie web des Communautés du Libre en France &mdash; Export haute résolution</h1>
+    <span id="linkback"><a href="./">Retour à la page principale</a></span>
     <div id="sigma" class="export"></div>
     <div id="small">
       <div id="column1">
@@ -19,28 +21,28 @@
         <div id="minimap4"><span></span><div></div></div>
       </div>
     </div>
-    <span id="buttons-legend">Ajustez l'apparence du graphe<br/>avec les paramètres ci-dessous</span>
-    <div id="buttons">
-      <div id="settings">
-        <label>Angle:</label>
-        <input type="text" id="angle"></input>
-        <label>haloSize:</label>
-        <input type="text" id="halo-size"></input>
-        <label>haloIntensity:</label>
-        <input type="text" id="halo-intensity"></input>
-      </div>
-      <div id="colors">
-        <label>Louvain seed:</label>
-        <input type="text" id="seed"></input>
-        <button type="button" id="random-seed">Random seed</button>
-        <label>IWantHue seed:</label>
-        <input type="text" id="color-seed"></input>
-        <button type="button" id="random-color-seed">Random seed</button>
+    <div id="controls">
+      <span id="buttons-legend">Ajustez l'apparence du graphe<br/>avec les paramètres ci-dessous :</span>
+      <div id="buttons">
+        <div id="settings">
+          <label>Angle:</label>
+          <input type="text" id="angle"></input>
+          <label>haloSize:</label>
+          <input type="text" id="halo-size"></input>
+          <label>haloIntensity:</label>
+          <input type="text" id="halo-intensity"></input>
+        </div>
+        <div id="colors">
+          <label>Louvain seed:</label>
+          <input type="text" id="seed"></input>
+          <button type="button" id="random-seed">Random seed</button>
+          <label>IWantHue seed:</label>
+          <input type="text" id="color-seed"></input>
+          <button type="button" id="random-color-seed">Random seed</button>
+        </div>
       </div>
     </div>
     <button type="button" id="save-as-png">Téléchargez les 5 graphes en images PNG haute resolution</button>
-    <h1>Cartographie web des Communautés du Libre en France &mdash; Export haute résolution</h1>
-    <span id="linkback"><a href="./">Retour à la page principale</a></span>
     <script src="build/bundle.js"></script>
   </body>
 </html>

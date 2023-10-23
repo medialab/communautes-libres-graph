@@ -9,22 +9,41 @@ html, body {
   overflow: hidden;
   font-family: "SourceCodePro";
 }
-#sigma.homepage {
-  width: 75%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+h1 {
+  font-size: 22px;
+  text-align: center;
+  width: 100%;
+  margin: auto;
+  padding: 7px;
+  background-color: #EEE;
+  border-bottom: 1px solid #BBB;
+}
+#linkback {
+  position: absolute;
+  font-size: 13px;
+  top: 13px;
+  right: 8px
+}
+#linkback a, #linkback a:visited {
+  color: black;
 }
 #explications {
   width: 25%;
   height: 2000px;
   float: left;
-  font-size: 12px;
+  font-size: 14px;
   background-color: #EEE;
+  overflow-y: auto;
 }
 #explications h3, #explications p {
   padding: 5px;
   margin: 5px;
+}
+#sigma.homepage {
+  width: 75%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 #sigma.export {
   width: 1000px;
@@ -33,31 +52,13 @@ html, body {
   padding: 0;
   overflow: hidden;
 }
-h1 {
-  position: absolute;
-  font-size: 22px;
-  bottom: 5px;
-  text-align: center;
-  width: 100%;
-  margin: auto;
-  background-color: #EEE;
-}
-#linkback {
-  position: absolute;
-  font-size: 13px;
-  bottom: 8px;
-  right: 5px
-}
-#linkback a, #linkback a:visited {
-  color: black;
-}
 #small {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 42px;
   display: flex;
   flex-direction: row;
-  border: 0.5px solid #000;
+  border: 0.5px solid #BBB;
 }
 #small > div {
   display: flex;
@@ -69,7 +70,7 @@ h1 {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  border: 0.5px solid #000;
+  border: 0.5px solid #BBB;
 }
 #small > div > div > span {
   position: relative;
@@ -86,17 +87,25 @@ h1 {
   height: 300px;
   width: 300px;
 }
+#controls {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 225px; 
+  background-color: #BBB
+}
 #buttons-legend {
   position: absolute;
-  bottom: 210px;
+  bottom: 175px;
   width: 380px;
-  right: 0;
+  right: 5px;
   text-align: center;
 }
 #buttons {
   position: absolute;
-  bottom: 75px;
-  right: 0;
+  bottom: 40px;
+  right: 5px;
   display: flex;
   flex-direction: row;
 }
@@ -107,7 +116,7 @@ h1 {
 }
 #save-as-png {
   position: absolute;
-  bottom: 45px;
-  right: 5px;
+  bottom: 10px;
+  right: 10px;
   width: 380px;
 }
