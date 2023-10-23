@@ -30,7 +30,34 @@
       <center><img src="images/modularity-clusters.png" alt="modularity"/></center>
       <p><small>Le code source de cette page repose entièrement sur des logiciels libres et est <a href="https://github.com/medialab/communautes-libres-graph" target="_blank">diffusé comme tel sous licence AGPL 3.0 sur GitHub</a>.</small></p>
     </div>
+
     <div id="sigma" class="homepage"></div>
+    <div id="interact">
+      <div id="sigma-buttons">
+        <button id="regscreen" class="tooltip" tooltip="reduce to window">
+          <img src="images/exit-fullscreen.svg" alt="exit-fullscreen" />
+        </button>
+        <button id="fullscreen" class="tooltip" tooltip="maximize to full screen">
+          <img src="images/fullscreen.svg" alt="fullscreen" />
+        </button>
+        <button id="zoom-out" class="tooltip" tooltip="zoom out">
+          <img src="images/zoom-out.svg" alt="zoom out" />
+        </button>
+        <button id="zoom-in" class="tooltip" tooltip="zoom in">
+          <img src="images/zoom-in.svg" alt="zoom in" />
+        </button>
+        <button id="zoom-reset" class="tooltip" tooltip="recenter &amp; reset zoom">
+          <img src="images/reset-zoom.svg" alt="reset-zoom" />
+        </button>
+      </div>
+      <div id="search">
+        <input type="search" id="search-input" list="suggestions" placeholder="search…" class="tooltip" tooltip="search a specific 'entity' in the graph" />
+        <img id="search-icon" src="./images/search.svg" alt="search a node in the graph" />
+        <datalist id="suggestions"><option>&nbsp;</option></datalist>
+        <select id="suggestions-select"><option>search…</option></select>
+      </div>
+    </div>
+
     <script src="build/bundle.js"></script>
   </body>
 </html>
