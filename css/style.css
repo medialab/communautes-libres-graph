@@ -68,7 +68,7 @@ h1 {
 }
 #loader.homepage {
   left: calc(62.5% - 25px);
-  top: calc(50% + 18px);
+  top: calc(50% - 43px);
 }
 #interact {
   position: absolute;

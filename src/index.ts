@@ -148,6 +148,8 @@ const prepareGraph = function(gexf) {
 
   const renderer = new Sigma(graph2, document.getElementById("sigma"), sigmaSettings(1));
   const camera = renderer.getCamera();
+
+  document.getElementById("loader").remove();
   return {graph, graph2, maxVals, renderer, camera};
 };
 
