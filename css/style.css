@@ -49,11 +49,26 @@ h1 {
   font-weight: bold;
   font-size: 15px;
 }
+#sigma.export {
+  margin: 0;
+  overflow: hidden;
+}
 #sigma.homepage {
   width: calc(75% - 5px);
   margin: 0;
   padding: 1px;
   overflow: hidden;
+}
+#loader {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 0;
+  opacity: 0.5;
+}
+#loader.homepage {
+  left: calc(62.5% - 25px);
+  top: calc(50% + 18px);
 }
 #interact {
   position: absolute;
@@ -93,6 +108,7 @@ h1 {
 #search-icon {
   position: absolute;
   top: 49px;
+  left: 8px;
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -136,9 +152,11 @@ input::-webkit-search-cancel-button {
 #sigma.export {
   width: 1000px;
   height: 1000px;
-  margin: 0;
   padding: 0;
-  overflow: hidden;
+}
+#loader.export {
+  left: 475px;
+  top: 475px;
 }
 #small {
   position: absolute;

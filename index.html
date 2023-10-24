@@ -14,7 +14,7 @@
     <div id="explications">
       <h3>Ceci est une carte des acteurs français de l'écosystème du Libre sur le web.</h3>
       <p>Elle se présente sous la forme d'un graphe (ou réseau) formé par les liens hypertextes reliant les sites web des acteurs français des différentes <a href="https://fr.wikipedia.org/wiki/Culture_libre" target="_blank">communautés du Libre</a> (Logiciels Libres, Linux, Open Data, communs, Internet libre, etc.).</p>
-      <p>Elle a été réalisée début 2023, dans le cadre de la production au médialab de Sciences Po d'un <a href="https://www.pressesdesciencespo.fr/fr/book/?gcoi=27246100226120" target="_blank">Atlas du Numérique</a>, afin d'illustrer l'usage de l'outil réseau en sciences sociales. Le réseau a été constitué à l'aide du logiciel libre <a href="https://github.com/medialab/hyphe#readme" target="_blank">Hyphe</a>, un crawler web <a href="https://dl.acm.org/doi/10.1145/3240431.3240434" target="_blank">conçu pour la recherche et l'enseignement</a>, qui visite automatiquement les pages web demandées et en extrait les liens vers d'autres pages afin de les visiter à leur tour et de construire progressivement un corpus d'acteurs web et le réseau des liens entre eux.</p>
+      <p>Elle a été réalisée début 2023, dans le cadre de la production au médialab de Sciences Po d'un <b><a href="https://www.pressesdesciencespo.fr/fr/book/?gcoi=27246100226120" target="_blank">Atlas du Numérique</a></b>, afin d'illustrer l'usage de l'outil réseau en sciences sociales. Le réseau a été constitué à l'aide du logiciel libre <a href="https://github.com/medialab/hyphe#readme" target="_blank">Hyphe</a>, un crawler web <a href="https://dl.acm.org/doi/10.1145/3240431.3240434" target="_blank">conçu pour la recherche et l'enseignement</a>, qui visite automatiquement les pages web demandées et en extrait les liens vers d'autres pages afin de les visiter à leur tour et de construire progressivement un corpus d'acteurs web et le réseau des liens entre eux.</p>
 
       <h3>La forme réseau</h3>
       <p>Issue des mathématiques, la carte en réseau s'est imposée en sciences sociales pour décrire les relations complexes qui peuvent exister entre des éléments et objets distants. Le développement des capacités de calcul et desalgorithmes a multiplié à l'infini la taille et les potentialités de ce type de représentation graphique.</p>
@@ -31,6 +31,7 @@
       <p><small>Le code source de cette page repose entièrement sur des logiciels libres et est <a href="https://github.com/medialab/communautes-libres-graph" target="_blank">diffusé comme tel sous licence AGPL 3.0 sur GitHub</a>.</small></p>
     </div>
 
+    <div id="loader" class="homepage"><img src="images/loader.gif" alt="loading network..."></div>
     <div id="sigma" class="homepage"></div>
     <div id="interact">
       <div id="sigma-buttons">
@@ -51,8 +52,8 @@
         </button>
       </div>
       <div id="search">
-        <input type="search" id="search-input" list="suggestions" placeholder="search…" class="tooltip" tooltip="search a specific 'entity' in the graph" />
-        <img id="search-icon" src="./images/search.svg" alt="search a node in the graph" />
+        <input type="search" id="search-input" list="suggestions" placeholder="chercher…" class="tooltip" tooltip="chercher un acteur spécifique du réseau" />
+        <img id="search-icon" src="images/search.svg" alt="chercher un acteur spécifique du réseau" />
         <datalist id="suggestions"><option>&nbsp;</option></datalist>
         <select id="suggestions-select"><option>search…</option></select>
       </div>

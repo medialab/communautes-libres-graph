@@ -337,10 +337,9 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
 
 const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
-  // - add loader
   // - add Louvain colors legend
-  // - add default sigma buttons
-  // - add search nodes
+  // - plug default sigma buttons
+  // - plug search nodes
   // - add click nodes and/or hover node
   // - add buttons to switch node size with other metrics
 
