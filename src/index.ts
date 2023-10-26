@@ -342,8 +342,8 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
 
 const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
-  // - add Louvain colors legend
   // - add buttons to switch node size with other metrics
+  // - link to homepage on doubleclick
 
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
   adjustAngle(renderer, camera, baseAngle, null);
