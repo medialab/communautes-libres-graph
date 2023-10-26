@@ -7,6 +7,7 @@ import FileSaver from "file-saver";
 
 import Graph from "graphology";
 import { Sigma } from "sigma";
+import { Coordinates } from "sigma/types";
 import { parse } from "graphology-gexf/browser";
 
 import simmelianStrength from 'graphology-metrics/edge/simmelian-strength';
@@ -47,6 +48,8 @@ const labelsOffsets = {
     "119": {y: 1},
     "53": {y: 2}
 };
+
+const sigmaContainer = document.getElementById("sigma");
 
 const sigmaSettings = ratio => ({
   minCameraRatio: 0.1,
@@ -146,7 +149,7 @@ const prepareGraph = function(gexf) {
     settings: FA2settings
   });
 
-  const renderer = new Sigma(graph2, document.getElementById("sigma"), sigmaSettings(1));
+  const renderer = new Sigma(graph2, sigmaContainer, sigmaSettings(1));
   const camera = renderer.getCamera();
 
   document.getElementById("loader").remove();
@@ -340,8 +343,6 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
 const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
   // - add Louvain colors legend
-  // - plug search nodes
-  // - add click nodes and/or hover node
   // - add buttons to switch node size with other metrics
 
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
@@ -384,13 +385,103 @@ const buildHomepage = function(graph, graph2, renderer, camera) {
     fullscreenButton.style.display = "block";
   };
 
+  // Prepare list of nodes for search suggestions
+  let suggestions = [],
+    selectedNode = null;
+  const allSuggestions = graph2.nodes()
+    .map((node) => ({
+      node: node,
+      label: graph2.getNodeAttribute(node, "label")
+    }))
+    .sort((a, b) => a.label < b.label ? -1 : 1);
+  function feedAllSuggestions() {
+    suggestions = allSuggestions.map(x => x);
+  }
+  feedAllSuggestions();
+
+  function fillSuggestions() {
+    document.getElementById("suggestions").innerHTML = suggestions
+      .sort((a, b) => a.label < b.label ? -1 : 1)
+      .map((node) => "<option>" + node.label + "</option>")
+      .join("\n");
+  }
+  fillSuggestions();
+
+  // Setup nodes input search for web browsers
+  const searchInput = document.getElementById("search-input") as HTMLInputElement;
+  function setSearchQuery(query="") {
+    feedAllSuggestions();
+    if (searchInput.value !== query)
+      searchInput.value = query;
+
+    if (query) {
+      const lcQuery = query.toLowerCase();
+      suggestions = [];
+      graph2.forEachNode((node, {label}) => {
+        if (label.toLowerCase().includes(lcQuery))
+          suggestions.push({node: node, label: label});
+      });
+
+      const suggestionsMatch = suggestions.filter(x => x.label === query);
+      if (suggestionsMatch.length === 1) {
+        // Move the camera to center it on the selected node:
+        const nodePosition = renderer.getNodeDisplayData(suggestionsMatch[0].node) as Coordinates;
+        camera.animate(nodePosition, {duration: 500});
+        clickNode(suggestionsMatch[0].node);
+        suggestions = [];
+      } else if (selectedNode) {
+        clickNode(null);
+      }
+    } else if (selectedNode) {
+      clickNode(null);
+      feedAllSuggestions();
+    }
+    fillSuggestions();
+  }
+  searchInput.oninput = () => {
+    setSearchQuery(searchInput.value || "");
+  };
+  searchInput.onblur = () => {
+    if (!selectedNode)
+      setSearchQuery("");
+  };
+  document.getElementById("search-icon").onclick = () => searchInput.focus();
+
+  // Setup Nodes hovering
+  renderer.on("enterNode", () => sigmaContainer.style.cursor = "pointer");
+  renderer.on("leaveNode", () => sigmaContainer.style.cursor = "default");
+
+  // Handle clicks on nodes
+  function clickNode(node) {
+    const sameNode = (node === selectedNode);
+    // Reset unselected node view
+    renderer.setSetting("nodeReducer", (n, attrs) => attrs);
+    renderer.setSetting("edgeReducer", (edge, attrs) => attrs);
+    if (!node) {
+      selectedNode = null;
+      return;
+    }
+    searchInput.value = graph2.getNodeAttribute(node, "label");
+    selectedNode = node;
+    const neighbors = new Set(graph2.neighbors(node));
+    renderer.setSetting("nodeReducer", (n, attrs) => n === node ?
+        {...attrs, highlighted: true, haloIntensity: 0.15} :
+        neighbors.has(n) ?
+          {...attrs, haloIntensity: 0.15} :
+          {...attrs, color: "#f6f6f6", size: 4, haloIntensity: 0}
+    );
+    renderer.setSetting("edgeReducer", (e, attrs) => graph2.hasExtremity(e, node) ? attrs : {...attrs, hidden: true});
+  }
+
+  renderer.on("clickNode", (event) => clickNode(event.node));
+  renderer.on("clickStage", () => setSearchQuery(""));
 };
 
 fetch("./data/graph.gexf")
   .then((res) => res.text())
   .then((gexf) => {
     if (! /\/export\.html/.test(window.location.pathname)) {
-      document.getElementById("sigma").style.height = window.innerHeight - 47 + "px";
+      sigmaContainer.style.height = window.innerHeight - 47 + "px";
       document.getElementById("explications").style.height = window.innerHeight - 43 + "px";
     }
     const vars = prepareGraph(gexf);
