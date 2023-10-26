@@ -340,13 +340,20 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
 const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
   // - add Louvain colors legend
-  // - plug default sigma buttons
   // - plug search nodes
   // - add click nodes and/or hover node
   // - add buttons to switch node size with other metrics
 
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
   adjustAngle(renderer, camera, baseAngle, null);
+
+  // Zoom buttons
+  document.getElementById("zoom-in").onclick =
+    () => camera.animatedZoom({ duration: 600 });
+  document.getElementById("zoom-out").onclick =
+    () => camera.animatedUnzoom({ duration: 600 });
+  document.getElementById("zoom-reset").onclick =
+    () => camera.animate({x: 0.5, y: 0.5, ratio: 1, angle: Math.PI * baseAngle / 180}, { duration: 300});
 
   // Fullscreen buttons
    const fullscreenButton = document.getElementById("fullscreen"),
