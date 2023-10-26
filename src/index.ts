@@ -343,7 +343,6 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
 const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
   // - add buttons to switch node size with other metrics
-  // - link to homepage on doubleclick
 
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
   adjustAngle(renderer, camera, baseAngle, null);
@@ -475,6 +474,7 @@ const buildHomepage = function(graph, graph2, renderer, camera) {
 
   renderer.on("clickNode", (event) => clickNode(event.node));
   renderer.on("clickStage", () => setSearchQuery(""));
+  renderer.on("doubleClickNode", (event) => window.open(graph2.getNodeAttribute(event.node, "homepage")));
 };
 
 fetch("./data/graph.gexf")

@@ -39,7 +39,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668684459796"/>
           <attvalue for="pages_crawled" value="276"/>
-          <attvalue for="homepage" value="https://www.april.org/site"/>
+          <attvalue for="homepage" value="https://www.april.org/"/>
           <attvalue for="name" value="April.org"/>
           <attvalue for="nansi-louvain" value="0"/>
           <attvalue for="nansi-betweenness" value="0.19243949926603493"/>
@@ -64,7 +64,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590778410"/>
           <attvalue for="pages_crawled" value="97"/>
-          <attvalue for="homepage" value="http://www.enventelibre.org/43-april"/>
+          <attvalue for="homepage" value="http://www.enventelibre.org/"/>
           <attvalue for="name" value="Enventelibre.org"/>
           <attvalue for="nansi-louvain" value="1"/>
           <attvalue for="nansi-betweenness" value="0.0002744914092899911"/>
@@ -189,7 +189,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590778679"/>
           <attvalue for="pages_crawled" value="117"/>
-          <attvalue for="homepage" value="https://www.librealire.org/contact-755"/>
+          <attvalue for="homepage" value="https://www.librealire.org/"/>
           <attvalue for="name" value="Librealire.org"/>
           <attvalue for="nansi-louvain" value="3"/>
           <attvalue for="nansi-betweenness" value="0.006030419836611354"/>
@@ -614,7 +614,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668989474899"/>
           <attvalue for="pages_crawled" value="107"/>
-          <attvalue for="homepage" value="https://guides.etalab.gouv.fr"/>
+          <attvalue for="homepage" value="https://etalab.gouv.fr"/>
           <attvalue for="name" value="Etalab.gouv.fr"/>
           <attvalue for="nansi-louvain" value="5"/>
           <attvalue for="nansi-betweenness" value="0.007103539499596165"/>
@@ -664,7 +664,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1669112572870"/>
           <attvalue for="pages_crawled" value="72"/>
-          <attvalue for="homepage" value="https://soutenir.framasoft.org"/>
+          <attvalue for="homepage" value="https://framasoft.org"/>
           <attvalue for="name" value="Framasoft.org"/>
           <attvalue for="nansi-louvain" value="2"/>
           <attvalue for="nansi-betweenness" value="0.14614728466078608"/>
@@ -1414,7 +1414,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590781357"/>
           <attvalue for="pages_crawled" value="118"/>
-          <attvalue for="homepage" value="https://lemmy.tedomum.net"/>
+          <attvalue for="homepage" value="https://tedomum.net"/>
           <attvalue for="name" value="Tedomum.net"/>
           <attvalue for="nansi-louvain" value="2"/>
           <attvalue for="nansi-betweenness" value="0.0015143144388337373"/>
@@ -1439,7 +1439,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590781393"/>
           <attvalue for="pages_crawled" value="15"/>
-          <attvalue for="homepage" value="https://framapiaf.org/%40Framasoft"/>
+          <attvalue for="homepage" value="https://framapiaf.org/"/>
           <attvalue for="name" value="Framapiaf.org"/>
           <attvalue for="nansi-louvain" value="2"/>
           <attvalue for="nansi-betweenness" value="0.005228776604570859"/>
@@ -1926,7 +1926,7 @@
         <viz:size value="2.797620026950531"/>
         <viz:position x="60.08509374605755" y="-317.0503870627975"/>
       </node>
-      <node id="151" label="Regardscitoyens.org">
+      <node id="151" label="RegardsCitoyens.org">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="820"/>
@@ -1976,7 +1976,7 @@
         <viz:size value="3.9203093757401"/>
         <viz:position x="-367.66937103249154" y="-335.33345570198526"/>
       </node>
-      <node id="159" label="Lesacteursdulibre.com">
+      <node id="159" label="LesActeursDuLibre.com">
         <attvalues>
           <attvalue for="status" value="IN"/>
           <attvalue for="pages_total" value="47"/>
@@ -2039,7 +2039,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590788408"/>
           <attvalue for="pages_crawled" value="38"/>
-          <attvalue for="homepage" value="https://app.benevalibre.org"/>
+          <attvalue for="homepage" value="https://benevalibre.org"/>
           <attvalue for="name" value="Benevalibre.org"/>
           <attvalue for="nansi-louvain" value="2"/>
           <attvalue for="nansi-betweenness" value="0.0005389393029985192"/>
@@ -2114,7 +2114,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590794084"/>
           <attvalue for="pages_crawled" value="13"/>
-          <attvalue for="homepage" value="https://votar.libre-innovation.org"/>
+          <attvalue for="homepage" value="https://libre-innovation.org"/>
           <attvalue for="name" value="Libre-Innovation.org"/>
           <attvalue for="nansi-louvain" value="5"/>
           <attvalue for="nansi-betweenness" value="0"/>
@@ -2139,7 +2139,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590794121"/>
           <attvalue for="pages_crawled" value="103"/>
-          <attvalue for="homepage" value="http://www.apitux.org/index.php"/>
+          <attvalue for="homepage" value="http://www.apitux.org/"/>
           <attvalue for="name" value="Apitux.org"/>
           <attvalue for="nansi-louvain" value="0"/>
           <attvalue for="nansi-betweenness" value="0.006695781137406025"/>
@@ -2489,7 +2489,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590834616"/>
           <attvalue for="pages_crawled" value="27"/>
-          <attvalue for="homepage" value="http://scola2009.libre-en-touraine.org"/>
+          <attvalue for="homepage" value="http://libre-en-touraine.org"/>
           <attvalue for="name" value="Libre-En-Touraine.org"/>
           <attvalue for="nansi-louvain" value="0"/>
           <attvalue for="nansi-betweenness" value="0.000807685372615641"/>
@@ -2614,7 +2614,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590849611"/>
           <attvalue for="pages_crawled" value="319"/>
-          <attvalue for="homepage" value="https://academy.opendatasoft.com"/>
+          <attvalue for="homepage" value="https://opendatasoft.com"/>
           <attvalue for="name" value="Opendatasoft.com"/>
           <attvalue for="nansi-louvain" value="5"/>
           <attvalue for="nansi-betweenness" value="0.00012612255487987197"/>
@@ -2689,7 +2689,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590860398"/>
           <attvalue for="pages_crawled" value="52"/>
-          <attvalue for="homepage" value="https://lejourdapres.parlement-ouvert.fr"/>
+          <attvalue for="homepage" value="https://parlement-ouvert.fr"/>
           <attvalue for="name" value="Parlement-Ouvert.fr"/>
           <attvalue for="nansi-louvain" value="5"/>
           <attvalue for="nansi-betweenness" value="0"/>
@@ -2739,7 +2739,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590864986"/>
           <attvalue for="pages_crawled" value="267"/>
-          <attvalue for="homepage" value="https://www.openedition.org/14043"/>
+          <attvalue for="homepage" value="https://www.openedition.org/"/>
           <attvalue for="name" value="Openedition.org"/>
           <attvalue for="nansi-louvain" value="5"/>
           <attvalue for="nansi-betweenness" value="0.00576745387756654"/>
@@ -3239,7 +3239,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668684083158"/>
           <attvalue for="pages_crawled" value="29"/>
-          <attvalue for="homepage" value="https://mobilizon.colibris-outilslibres.org"/>
+          <attvalue for="homepage" value="https://colibris-outilslibres.org"/>
           <attvalue for="name" value="Colibris-Outilslibres.org"/>
           <attvalue for="nansi-louvain" value="2"/>
           <attvalue for="nansi-betweenness" value="0.0032781865398926278"/>
@@ -3364,7 +3364,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590985449"/>
           <attvalue for="pages_crawled" value="75"/>
-          <attvalue for="homepage" value="http://www.logiciellibre.net/ossfswhat.php"/>
+          <attvalue for="homepage" value="http://www.logiciellibre.net/"/>
           <attvalue for="name" value="Logiciellibre.net"/>
           <attvalue for="nansi-louvain" value="0"/>
           <attvalue for="nansi-betweenness" value="0.00003163394770386638"/>
@@ -3389,7 +3389,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668590985735"/>
           <attvalue for="pages_crawled" value="14"/>
-          <attvalue for="homepage" value="https://www.libre.re/login"/>
+          <attvalue for="homepage" value="https://www.libre.re/"/>
           <attvalue for="name" value="Libre.re"/>
           <attvalue for="nansi-louvain" value="3"/>
           <attvalue for="nansi-betweenness" value="0"/>
@@ -3714,7 +3714,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1669197625698"/>
           <attvalue for="pages_crawled" value="10"/>
-          <attvalue for="homepage" value="http://forge.cliss21.org"/>
+          <attvalue for="homepage" value="http://cliss21.org"/>
           <attvalue for="name" value="Cliss21.org"/>
           <attvalue for="nansi-louvain" value="2"/>
           <attvalue for="nansi-betweenness" value="0.000013268179459251654"/>
@@ -3889,7 +3889,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668619755355"/>
           <attvalue for="pages_crawled" value="691"/>
-          <attvalue for="homepage" value="https://boutique.ed-diamond.com"/>
+          <attvalue for="homepage" value="https://ed-diamond.com"/>
           <attvalue for="name" value="Ed-Diamond.com"/>
           <attvalue for="nansi-louvain" value="1"/>
           <attvalue for="nansi-betweenness" value="0.003710819846604733"/>
@@ -4313,7 +4313,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668611669643"/>
           <attvalue for="pages_crawled" value="61"/>
-          <attvalue for="homepage" value="https://film.zemarmot.net"/>
+          <attvalue for="homepage" value="https://zemarmot.net"/>
           <attvalue for="name" value="Zemarmot.net"/>
           <attvalue for="nansi-louvain" value="0"/>
           <attvalue for="nansi-betweenness" value="0.0005087752054965836"/>
@@ -4588,7 +4588,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668619756113"/>
           <attvalue for="pages_crawled" value="306"/>
-          <attvalue for="homepage" value="https://en.opensuse.org"/>
+          <attvalue for="homepage" value="https://fr.opensuse.org"/>
           <attvalue for="name" value="Opensuse.org"/>
           <attvalue for="nansi-louvain" value="1"/>
           <attvalue for="nansi-betweenness" value="0.004717462072665553"/>
@@ -4812,7 +4812,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668792781255"/>
           <attvalue for="pages_crawled" value="201"/>
-          <attvalue for="homepage" value="https://cpu.dascritch.net"/>
+          <attvalue for="homepage" value="https://dascritch.net"/>
           <attvalue for="name" value="Dascritch.net"/>
           <attvalue for="nansi-louvain" value="6"/>
           <attvalue for="nansi-betweenness" value="0.004963621589797265"/>
@@ -5709,7 +5709,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668602498234"/>
           <attvalue for="pages_crawled" value="147"/>
-          <attvalue for="homepage" value="https://www.bortzmeyer.org/index.html"/>
+          <attvalue for="homepage" value="https://www.bortzmeyer.org/"/>
           <attvalue for="name" value="Bortzmeyer.org"/>
           <attvalue for="nansi-louvain" value="4"/>
           <attvalue for="nansi-betweenness" value="0.023110499995447075"/>
@@ -6257,7 +6257,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668673572445"/>
           <attvalue for="pages_crawled" value="7"/>
-          <attvalue for="homepage" value="http://villes.bienscommuns.org"/>
+          <attvalue for="homepage" value="http://bienscommuns.org"/>
           <attvalue for="name" value="Bienscommuns.org"/>
           <attvalue for="nansi-louvain" value="5"/>
           <attvalue for="nansi-betweenness" value="0.000449601664650906"/>
@@ -6706,7 +6706,7 @@
           <attvalue for="crawled" value="true"/>
           <attvalue for="last_modification_date" value="1668619759350"/>
           <attvalue for="pages_crawled" value="64"/>
-          <attvalue for="homepage" value="https://doc.domainepublic.net"/>
+          <attvalue for="homepage" value="https://domainepublic.net"/>
           <attvalue for="name" value="Domainepublic.net"/>
           <attvalue for="nansi-louvain" value="4"/>
           <attvalue for="nansi-betweenness" value="0.002040444615499709"/>
