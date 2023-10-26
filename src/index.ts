@@ -347,6 +347,36 @@ const buildHomepage = function(graph, graph2, renderer, camera) {
 
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
   adjustAngle(renderer, camera, baseAngle, null);
+
+  // Fullscreen buttons
+   const fullscreenButton = document.getElementById("fullscreen"),
+    regscreenButton = document.getElementById("regscreen");
+  fullscreenButton.onclick = () => {
+    const doc = document.documentElement as any;
+    if (doc.requestFullscreen) {
+      doc.requestFullscreen();
+    } else if (doc.webkitRequestFullscreen) { /* Safari */
+      doc.webkitRequestFullscreen();
+    } else if (doc.msRequestFullscreen) { /* IE11 */
+      doc.msRequestFullscreen();
+    }
+    fullscreenButton.style.display = "none";
+    regscreenButton.style.display = "block";
+  };
+
+  regscreenButton.onclick = () => {
+    const doc = document as any;
+    if (doc.exitFullscreen) {
+      doc.exitFullscreen();
+    } else if (doc.webkitExitFullscreen) { /* Safari */
+      doc.webkitExitFullscreen();
+    } else if (doc.msExitFullscreen) { /* IE11 */
+      doc.msExitFullscreen();
+    }
+    regscreenButton.style.display = "none";
+    fullscreenButton.style.display = "block";
+  };
+
 };
 
 fetch("./data/graph.gexf")
