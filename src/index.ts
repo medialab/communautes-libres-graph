@@ -29,7 +29,7 @@ import { createNodeCompoundProgram } from 'sigma/rendering/webgl/programs/common
 import NodePointWithBorderProgram from '@yomguithereal/sigma-experiments-renderers/node/node.point.border';
 import NodeHaloProgram from '@yomguithereal/sigma-experiments-renderers/node/node.halo';
 import EdgeCurveProgram from '@yomguithereal/sigma-experiments-renderers/edge/edge.curve';
-import drawLabel from "./custom-label"
+import { drawLabel, drawHover } from './custom-label';
 
 import { cropToLargestConnectedComponent } from "graphology-components";
 
@@ -74,6 +74,7 @@ const sigmaSettings = ratio => ({
     curve: EdgeCurveProgram
   },
   labelRenderer: drawLabel,
+  hoverRenderer: drawHover,
   stagePadding: ratio * 50,
   nodeReducer: (n, attrs) => ({
     ...attrs,
@@ -342,6 +343,7 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
 
 const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
+  // - full screen should initiate resize
   // - add buttons to switch node size with other metrics
 
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
