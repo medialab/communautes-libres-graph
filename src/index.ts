@@ -476,7 +476,12 @@ const buildHomepage = function(graph, graph2, maxVals, renderer, camera) {
 
   renderer.on("clickNode", (event) => clickNode(event.node));
   renderer.on("clickStage", () => setSearchQuery(""));
-  renderer.on("doubleClickNode", (event) => window.open(graph2.getNodeAttribute(event.node, "homepage")));
+  renderer.on("doubleClickNode", (event) => {
+    event.preventSigmaDefault();
+    window.open(graph2.getNodeAttribute(event.node, "homepage"));
+  });
+  renderer.on("doubleClickStage", (event) => event.preventSigmaDefault());
+  renderer.on("doubleClickEdge", (event) => event.preventSigmaDefault());
 
   document.getElementById("edit-size").onchange = (e) => {
     const option = (document.getElementById("edit-size") as HTMLSelectElement).value;
@@ -494,7 +499,7 @@ const EXPORTPAGE = /\/export\.html/.test(window.location.pathname);
 function resize() {
   sigmaContainer.style.height = window.innerHeight - 47 + "px";
   const availableHeight = window.innerHeight - 43,
-    legendHeight = Math.min(430, availableHeight / 2) - 1;
+    legendHeight = Math.min(500, availableHeight / 2) - 1;
   document.getElementById("sidebar").style.height = availableHeight + "px";
   document.getElementById("explications").style.height = (availableHeight - legendHeight) + "px";
   document.getElementById("legend").style.height = legendHeight+ "px";
@@ -510,7 +515,7 @@ fetch("./data/graph.gexf")
   .then((res) => res.text())
   .then((gexf) => {
     const vars = prepareGraph(gexf);
-    if (window.location.pathname === "/export.html")
+    if (EXPORTPAGE)
       buildExportableGraphs(vars.graph, vars.graph2, vars.maxVals, vars.renderer, vars.camera);
     else buildHomepage(vars.graph, vars.graph2, vars.maxVals, vars.renderer, vars.camera);
   });

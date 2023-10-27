@@ -3,6 +3,13 @@
   src: url(./SourceCodePro-VariableFont_wght.ttf) format("truetype");
 }
 
+::selection {
+  background-color: #BBB;
+}
+::-moz-selection {
+  background-color: #BBB;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -40,7 +47,7 @@ h1 {
   overflow: hidden;
   border-right: 1px solid #BBB;
 }
-#sidebar h3, #sidebar p {
+#explications h3, #explications p {
   padding: 5px;
   margin: 5px;
 }
@@ -58,10 +65,15 @@ h1 {
   border-top: 2px solid #BBB;
   margin-top: 3px;
   overflow-y: auto;
+  font-size: 13px;
+}
+#legend p {
+  padding: 5px;
+  margin: 2px;
 }
 #edit-size {
  margin-left: 10px;
- width: 95%;
+ width: 90%;
 }
 #legend ul {
   margin-top: -5px;
@@ -79,6 +91,10 @@ h1 {
   border-radius: 10px;
   margin-right: 10px;
   margin-top: 10px;
+}
+#notice {
+  margin-top: -10px!important;
+  padding-bottom: 8px!important;
 }
 #sigma.export {
   margin: 0;
@@ -106,6 +122,11 @@ h1 {
   top: 45px;
   text-align: center;
   left: calc(25% + 3px);
+   user-select: none;
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
 }
 #sigma-buttons {
   display: flex;
