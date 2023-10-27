@@ -32,24 +32,39 @@ h1 {
   top: 13px;
   right: 8px
 }
-#explications {
+#sidebar {
   width: 25%;
   float: left;
   font-size: 14px;
   background-color: #EEE;
-  overflow-y: auto;
-  margin-bottom: 5px;
+  overflow: hidden;
   border-right: 1px solid #BBB;
 }
-#explications h3, #explications p {
+#sidebar h3, #sidebar p {
   padding: 5px;
   margin: 5px;
+}
+#explications {
+  height: 50%;
+  overflow-y: auto;
+  padding-bottom: 5px;
 }
 .subtitle {
   font-weight: bold;
   font-size: 15px;
 }
 #legend {
+  height: 50%;
+  border-top: 2px solid #BBB;
+  margin-top: 3px;
+  overflow-y: auto;
+}
+#edit-size {
+ margin-left: 10px;
+ width: 95%;
+}
+#legend ul {
+  margin-top: -5px;
   margin-left: -25px;
 }
 #legend li {

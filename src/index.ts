@@ -1,3 +1,7 @@
+/* TODO
+ * - complete doc métriques
+ * - fix export page dimensions on some browsers
+*/
 import chroma from "chroma-js";
 import iwanthue from "iwanthue";
 
@@ -341,10 +345,7 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
   };
 };
 
-const buildHomepage = function(graph, graph2, renderer, camera) {
-  //TODO:
-  // - add buttons to switch node size with other metrics
-
+const buildHomepage = function(graph, graph2, maxVals, renderer, camera) {
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
   adjustAngle(renderer, camera, baseAngle, null);
 
@@ -476,6 +477,15 @@ const buildHomepage = function(graph, graph2, renderer, camera) {
   renderer.on("clickNode", (event) => clickNode(event.node));
   renderer.on("clickStage", () => setSearchQuery(""));
   renderer.on("doubleClickNode", (event) => window.open(graph2.getNodeAttribute(event.node, "homepage")));
+
+  document.getElementById("edit-size").onchange = (e) => {
+    const option = (document.getElementById("edit-size") as HTMLSelectElement).value;
+    graph2.forEachNode((node, attrs) => {
+      if (option === "nansi-degree")
+        graph2.setNodeAttribute(node, "size", Math.sqrt(attrs[option]));
+      else graph2.setNodeAttribute(node, "size", Math.sqrt(attrs[option] / maxVals[option] * 500));
+    });
+  };
 };
 
 let resizing = null;
@@ -483,20 +493,24 @@ const EXPORTPAGE = /\/export\.html/.test(window.location.pathname);
 
 function resize() {
   sigmaContainer.style.height = window.innerHeight - 47 + "px";
-  document.getElementById("explications").style.height = window.innerHeight - 43 + "px";
+  const availableHeight = window.innerHeight - 43,
+    legendHeight = Math.min(430, availableHeight / 2) - 1;
+  document.getElementById("sidebar").style.height = availableHeight + "px";
+  document.getElementById("explications").style.height = (availableHeight - legendHeight) + "px";
+  document.getElementById("legend").style.height = legendHeight+ "px";
 }
 
 if (!EXPORTPAGE) window.onresize = () => {
   if (resizing) clearTimeout(resizing);
   resizing = setTimeout(resize, 0);
 };
+if (!EXPORTPAGE) resize();
 
 fetch("./data/graph.gexf")
   .then((res) => res.text())
   .then((gexf) => {
-    if (!EXPORTPAGE) resize();
     const vars = prepareGraph(gexf);
     if (window.location.pathname === "/export.html")
       buildExportableGraphs(vars.graph, vars.graph2, vars.maxVals, vars.renderer, vars.camera);
-    else buildHomepage(vars.graph, vars.graph2, vars.renderer, vars.camera);
+    else buildHomepage(vars.graph, vars.graph2, vars.maxVals, vars.renderer, vars.camera);
   });
