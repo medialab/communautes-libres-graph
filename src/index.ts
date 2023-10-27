@@ -343,7 +343,6 @@ const buildExportableGraphs = function(graph, graph2, maxVals, renderer, camera)
 
 const buildHomepage = function(graph, graph2, renderer, camera) {
   //TODO:
-  // - full screen should initiate resize
   // - add buttons to switch node size with other metrics
 
   adjustCommunitiesColors(graph, graph2, seed, colorSeed);
@@ -479,13 +478,23 @@ const buildHomepage = function(graph, graph2, renderer, camera) {
   renderer.on("doubleClickNode", (event) => window.open(graph2.getNodeAttribute(event.node, "homepage")));
 };
 
+let resizing = null;
+const EXPORTPAGE = /\/export\.html/.test(window.location.pathname);
+
+function resize() {
+  sigmaContainer.style.height = window.innerHeight - 47 + "px";
+  document.getElementById("explications").style.height = window.innerHeight - 43 + "px";
+}
+
+if (!EXPORTPAGE) window.onresize = () => {
+  if (resizing) clearTimeout(resizing);
+  resizing = setTimeout(resize, 0);
+};
+
 fetch("./data/graph.gexf")
   .then((res) => res.text())
   .then((gexf) => {
-    if (! /\/export\.html/.test(window.location.pathname)) {
-      sigmaContainer.style.height = window.innerHeight - 47 + "px";
-      document.getElementById("explications").style.height = window.innerHeight - 43 + "px";
-    }
+    if (!EXPORTPAGE) resize();
     const vars = prepareGraph(gexf);
     if (window.location.pathname === "/export.html")
       buildExportableGraphs(vars.graph, vars.graph2, vars.maxVals, vars.renderer, vars.camera);
