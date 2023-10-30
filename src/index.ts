@@ -12,7 +12,7 @@ import FileSaver from "file-saver";
 import Graph from "graphology";
 import { Sigma } from "sigma";
 import { Coordinates } from "sigma/types";
-import { parse } from "graphology-gexf/browser";
+import gexf from "graphology-gexf/browser";
 
 import simmelianStrength from 'graphology-metrics/edge/simmelian-strength';
 import betweennessCentrality from 'graphology-metrics/centrality/betweenness';
@@ -51,6 +51,15 @@ const labelsOffsets = {
     "33": {y: -2},
     "119": {y: 1},
     "53": {y: 2}
+};
+
+const omit = function(obj, omitKeys){
+  return Object.keys(obj).reduce(function(result, key) {
+    if(!~omitKeys.indexOf(key)){
+       result[key] = obj[key];
+    }
+    return result;
+  }, {});
 };
 
 const sigmaContainer = document.getElementById("sigma");
@@ -95,8 +104,8 @@ const sigmaSettings = ratio => ({
   })
 });
 
-const prepareGraph = function(gexf) {
-  const graph = parse(Graph, gexf);
+const prepareGraph = function(g) {
+  const graph = gexf.parse(Graph, g);
   const graph2 = new Graph({type: "directed"});
 
   simmelianStrength.assign(graph);
@@ -493,6 +502,29 @@ const buildHomepage = function(graph, graph2, maxVals, renderer, camera) {
       else graph2.setNodeAttribute(node, "size", Math.sqrt(attrs[option] / maxVals[option] * 500));
     });
   };
+
+  document.getElementById("downloadGEXF").onclick = () => {
+    const blob = new Blob(
+      [gexf.write(graph2, {
+        formatNode: function(key, attrs) {
+          const d = Math.sqrt(attrs.x * attrs.x + attrs.y * attrs.y)
+          return {
+            label: attrs.label,
+            attributes: omit(attrs, ["label", "color", "x", "y", "size"]),
+            viz: {
+              color: attrs.color,
+              x: attrs.x * Math.cos(-camera.angle) - attrs.y * Math.sin(-camera.angle),
+              y: attrs.y * Math.cos(-camera.angle) + attrs.x * Math.sin(-camera.angle),
+              size: attrs.size
+            }
+          };
+        }
+      })],
+      {'type':'text/gexf+xml;charset=utf-8'}
+    );
+    FileSaver.saveAs(blob, "reseau-communautes-libres-fr.gexf", true);
+
+  };
 };
 
 let resizing = null;
@@ -520,8 +552,8 @@ if (!EXPORTPAGE) resize();
 
 fetch("./data/graph.gexf")
   .then((res) => res.text())
-  .then((gexf) => {
-    const vars = prepareGraph(gexf);
+  .then((g) => {
+    const vars = prepareGraph(g);
     if (EXPORTPAGE)
       buildExportableGraphs(vars.graph, vars.graph2, vars.maxVals, vars.renderer, vars.camera);
     else buildHomepage(vars.graph, vars.graph2, vars.maxVals, vars.renderer, vars.camera);
