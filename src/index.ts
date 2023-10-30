@@ -371,6 +371,7 @@ const buildHomepage = function(graph, graph2, maxVals, renderer, camera) {
     }
     fullscreenButton.style.display = "none";
     regscreenButton.style.display = "block";
+    setTimeout(function() { renderer.refresh() }, 50);
   };
 
   regscreenButton.onclick = () => {
@@ -384,6 +385,7 @@ const buildHomepage = function(graph, graph2, maxVals, renderer, camera) {
     }
     regscreenButton.style.display = "none";
     fullscreenButton.style.display = "block";
+    setTimeout(function() { renderer.refresh() }, 50);
   };
 
   // Prepare list of nodes for search suggestions
@@ -499,10 +501,15 @@ const EXPORTPAGE = /\/export\.html/.test(window.location.pathname);
 function resize() {
   sigmaContainer.style.height = window.innerHeight - 47 + "px";
   const availableHeight = window.innerHeight - 43,
-    legendHeight = Math.min(500, availableHeight / 2) - 1;
+    legendHeight = Math.min(440, availableHeight / 2) - 1,
+    availableWidth = window.innerWidth,
+    sidebarWidth = Math.max(350, availableWidth / 4);
   document.getElementById("sidebar").style.height = availableHeight + "px";
+  document.getElementById("sidebar").style.width = sidebarWidth + "px";
   document.getElementById("explications").style.height = (availableHeight - legendHeight) + "px";
   document.getElementById("legend").style.height = legendHeight+ "px";
+  document.getElementById("sigma").style.width = (availableWidth - sidebarWidth - 5) + "px";
+  document.getElementById("interact").style.left = (sidebarWidth + 3) + "px";
 }
 
 if (!EXPORTPAGE) window.onresize = () => {

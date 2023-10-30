@@ -40,7 +40,6 @@ h1 {
   right: 8px
 }
 #sidebar {
-  width: 25%;
   float: left;
   font-size: 14px;
   background-color: #EEE;
@@ -72,8 +71,9 @@ h1 {
   margin: 2px;
 }
 #edit-size {
- margin-left: 10px;
- width: 90%;
+  margin-left: 10px;
+  width: 90%;
+  margin-top: 3px;
 }
 #legend ul {
   margin-top: -5px;
@@ -101,7 +101,6 @@ h1 {
   overflow: hidden;
 }
 #sigma.homepage {
-  width: calc(75% - 5px);
   margin: 0;
   padding: 1px;
   overflow: hidden;

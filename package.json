@@ -23,7 +23,7 @@
     "graphology-metrics": "^2.1.0",
     "iwanthue": "^2.0.0",
     "seedrandom": "^3.0.5",
-    "sigma": "^3.0.0-alpha2"
+    "sigma": "^3.0.0-alpha3"
   },
   "devDependencies": {
     "kotatsu": "^0.22.3",
