@@ -18,13 +18,13 @@
         <p>Elle a été réalisée début 2023, dans le cadre de la production au médialab de Sciences Po d'un <b><a href="https://www.pressesdesciencespo.fr/fr/book/?gcoi=27246100226120" target="_blank">Atlas du Numérique</a></b>, afin d'illustrer l'usage de l'outil réseau en sciences sociales. Le réseau a été constitué à l'aide du logiciel libre <a href="https://github.com/medialab/hyphe#readme" target="_blank">Hyphe</a>, un crawler web <a href="https://dl.acm.org/doi/10.1145/3240431.3240434" target="_blank">conçu pour la recherche et l'enseignement</a>, qui visite automatiquement les pages web demandées et en extrait les liens vers d'autres pages afin de les visiter à leur tour et de construire progressivement un corpus d'acteurs web et le réseau des liens entre eux.</p>
         <p><small>Le code source de cette page repose entièrement sur des logiciels libres et est <a href="https://github.com/medialab/communautes-libres-graph" target="_blank">diffusé comme tel sous licence AGPL 3.0 sur GitHub</a>.</small></p>
         <p><small>Les données du réseau sont <a href="#" id="downloadGEXF">téléchargeables au format GEXF en cliquant sur ce lien</a>.</small></p>
-  
+
         <h3>La forme réseau</h3>
         <p>Issue des mathématiques, la carte en réseau s'est imposée en sciences sociales pour décrire les relations complexes qui peuvent exister entre des éléments et objets distants. Le développement des capacités de calcul et desalgorithmes a multiplié à l'infini la taille et les potentialités de ce type de représentation graphique.</p>
         <p>En 1736, le mathématicien suisse <a href="https://scholarlycommons.pacific.edu/cgi/viewcontent.cgi?article=1052&context=euler-works" target="_blank">Leonhard Euler</a> résout une énigme qui deviendra célèbre : comment <a href="https://fr.wikipedia.org/wiki/Probl%C3%A8me_des_sept_ponts_de_K%C3%B6nigsberg" target="_blank">offrir aux habitants de Königsberg un circuit de promenade</a> qui leur permette de traverser une et une seule fois chacun des sept ponts de leur ville&nbsp;? Pour cela, Euler réduit le plan de Königsberg à une série de nœuds (les parties de la ville) reliés par des arcs (les ponts). Cette forme de représentation a donné naissance à la théorie des graphes, ou théorie des réseaux, depuis lors régulièrement utilisée en mathématiques pour traiter des problèmes d'optimisation complexes comme la recherche du plus court chemin sur une carte, dans un réseau de transports ou dans la toile de serveurs et de câbles que constitue le réseau internet lui-même.</p>
         <p>Les sciences sociales s'emparent à leur tour de ce type de représentation, au début du xxe siècle. <a href="https://reflexus.org/wp-content/uploads/whoshallsurvive.pdf" target="_blank">Les «&nbsp;sociogrammes&nbsp;» de Jacob Levy Moreno</a> s'imposent comme de puissants vecteurs visuels pour étudier les relations sociales et les interactions entre les individus, là où les tableaux et matrices étaient généralement mis en échec. Leur application reste limitée à des réseaux de petite taille, jusqu'à ce que le développement de l'informatique et des capacités numériques, à partir des années 1990, permette l'étude de réseaux de taille moyenne à très grande à l'aide d'algorithmes automatisés de spatialisation et de calcul.</p>
         <p>Bien que les représentations en réseau ne soient pas sans limites et qu'il convienne de les lire avec beaucoup de précaution si l'on veut éviter de leur donner des interprétations erronées, elles sont désormais perçues, à bien des égards, comme une cartographie pertinente d'ensembles de données abstraites. La carte des sites web francophones des différentes communautés du logiciel libre reproduite ci-contre en offre un exemple.</p>
-  
+
         <h3>Comment lire un tel réseau ?</h3>
         <p>Un graphique de forme réseau sert à montrer les liens qui existent entre une multitude d'acteurs. Dans l'exemple ci-contre, chaque site est matérialisé par un point de taille variable, dont le rayon est représentatif du nombre d'hyperliens trouvés par Hyphe au sein des pages web de ce site vers les autres sites du réseau, et réciproquement (soit le « degré » de chaque acteur). En d'autres termes, un site web est représenté par un point d'autant plus gros que des liens vers ce site existent depuis les autres sites web.</p>
         <p>Chaque disque a été positionné dans l'espace à l'aide d'un algorithme (<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0098679" target="_blank">ForceAtlas2</a>) simulant des forces physiques d'attraction et de répulsion, de sorte que les sites ayant des liens entre eux se rapprochent tandis que ceux qui n'en ont pas s'éloignent les uns des autres. Le graphe donne à voir les proximités entre les différents éléments ; les coordonnées X et Y n'ont pas de signification et sont totalement arbitraires.</p>
@@ -38,14 +38,14 @@
         <p>La <b>taille</b> des nœuds représente leur :
         <select id="edit-size" name="size" list="metriques">
           <datalist id="metriques">
-            <option value="nansi-degree" selected="selected">Degré (connectivité aux autres nœuds)</option>
-            <option value="indegree">Degré entrant (volume de liens entrants des autres nœuds)</option>
-            <option value="outdegree">Degré sortant (volume de liens sortants vers les autres nœuds)</option>
-            <option value="pagerank">PageRank (popularité parmi les plus polulaires)</option>
-            <option value="betweennessCentrality">Centralité intermédiaire (pont à l'intersection des communautés)</option>
-            <option value="eigenvectorCentrality">Centralité vectorielle ()</option>
-            <option value="authority">Autorité ()</option>
-            <option value="hub">Hub ()</option>
+            <option value="nansi-degree" selected="selected">Degré (nombre de liens)</option>
+            <option value="indegree">Degré entrant (nombre de liens vers d'autres nœuds)</option>
+            <option value="outdegree">Degré sortant (nombre de liens depuis d'autres nœuds)</option>
+            <option value="pagerank">PageRank (nombre de liens venant des nœuds les plus populaires)</option>
+            <option value="betweennessCentrality">Centralité intermédiaire (combien de fois le nœud est sur le plus court chemin entre deux autres nœuds)</option>
+            <option value="eigenvectorCentrality">Centralité vectorielle (nombre de liens partagés avec les nœuds les plus populaires)</option>
+            <option value="hub">Hub (nombre de liens envoyés vers des autorités, cf. suivant)</option>
+            <option value="authority">Autorité (nombre de liens reçus depuis des hubs, cf. précédent)</option>
           </datalist>
         </select>
         </p>
