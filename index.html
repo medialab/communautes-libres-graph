@@ -39,13 +39,13 @@
         <select id="edit-size" name="size" list="metriques">
           <datalist id="metriques">
             <option value="nansi-degree" selected="selected">Degré (nombre de liens)</option>
-            <option value="indegree">Degré entrant (nombre de liens vers d'autres nœuds)</option>
-            <option value="outdegree">Degré sortant (nombre de liens depuis d'autres nœuds)</option>
+            <option value="indegree">Degré entrant (nombre de liens depuis d'autres nœuds)</option>
+            <option value="outdegree">Degré sortant (nombre de liens vers d'autres nœuds)</option>
             <option value="pagerank">PageRank (nombre de liens venant des nœuds les plus populaires)</option>
-            <option value="betweennessCentrality">Centralité intermédiaire (combien de fois le nœud est sur le plus court chemin entre deux autres nœuds)</option>
             <option value="eigenvectorCentrality">Centralité vectorielle (nombre de liens partagés avec les nœuds les plus populaires)</option>
-            <option value="hub">Hub (nombre de liens envoyés vers des autorités, cf. suivant)</option>
-            <option value="authority">Autorité (nombre de liens reçus depuis des hubs, cf. précédent)</option>
+            <option value="betweennessCentrality">Centralité intermédiaire (présence sur le plus court chemin entre 2 autres nœuds)</option>
+            <option value="authority">Autorité (nombre de liens reçus depuis des hubs, cf. suivant)</option>
+            <option value="hub">Hub (nombre de liens envoyés vers des autorités, cf. précédent)</option>
           </datalist>
         </select>
         </p>
