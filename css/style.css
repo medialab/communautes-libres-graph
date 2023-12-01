@@ -251,20 +251,20 @@ input::-webkit-search-cancel-button {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 400px;
-  height: 225px;
+  width: 410px;
+  height: 245px;
   background-color: #BBB
 }
 #buttons-legend {
   position: absolute;
-  bottom: 175px;
+  bottom: 195px;
   width: 380px;
   right: 5px;
   text-align: center;
 }
 #buttons {
   position: absolute;
-  bottom: 40px;
+  bottom: 60px;
   right: 5px;
   display: flex;
   flex-direction: row;
